@@ -1,3 +1,4 @@
+@ -0,0 +1,427 @@
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,1171 +22,7 @@
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <style>
-    /**
-    * Template Name: Valera
-    * Template URL: https://bootstrapmade.com/valera-free-bootstrap-theme/
-    * Updated: Mar 17 2024 with Bootstrap v5.3.3
-    * Author: BootstrapMade.com
-    * License: https://bootstrapmade.com/license/
-    */
-
-    /*--------------------------------------------------------------
-    # General
-    --------------------------------------------------------------*/
-    body {
-      font-family: "Open Sans", sans-serif;
-      color: #444444;
-    }
-
-    a {
-      color: #ff7f5d;
-      text-decoration: none;
-    }
-
-    a:hover {
-      color: #ffa790;
-      text-decoration: none;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-family: "Raleway", sans-serif;
-    }
-
-    /*--------------------------------------------------------------
-    # Preloader
-    --------------------------------------------------------------*/
-    #preloader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 9999;
-      overflow: hidden;
-      background: #fff;
-    }
-
-    #preloader:before {
-      content: "";
-      position: fixed;
-      top: calc(50% - 30px);
-      left: calc(50% - 30px);
-      border: 6px solid #ff7f5d;
-      border-top-color: white;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: animate-preloader 1s linear infinite;
-    }
-
-    @keyframes animate-preloader {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    /*--------------------------------------------------------------
-    # Back to top button
-    --------------------------------------------------------------*/
-    .back-to-top {
-      position: fixed;
-      visibility: hidden;
-      opacity: 0;
-      right: 15px;
-      bottom: 15px;
-      z-index: 996;
-      background: #ff7f5d;
-      width: 40px;
-      height: 40px;
-      border-radius: 4px;
-      transition: all 0.4s;
-    }
-
-    .back-to-top i {
-      font-size: 28px;
-      color: #fff;
-      line-height: 0;
-    }
-
-    .back-to-top:hover {
-      background: #ff9f86;
-      color: #fff;
-    }
-
-    .back-to-top.active {
-      visibility: visible;
-      opacity: 1;
-    }
-
-    /*--------------------------------------------------------------
-    # Header
-    --------------------------------------------------------------*/
-    #header {
-      background: rgba(21, 5, 23, 0.25);
-      transition: all 0.5s;
-      z-index: 997;
-      position: relative;
-      height: 70px;
-    }
-
-    @media (max-width: 992px) {
-      #header {
-        height: 60px;
-      }
-    }
-
-    #header.fixed-top,
-    #header.header-inner-pages {
-      background: rgba(21, 5, 23, 0.8);
-    }
-
-    #header.fixed-top {
-      position: fixed;
-    }
-
-    #header .logo {
-      font-size: 30px;
-      margin: 0;
-      padding: 0;
-      line-height: 1;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    #header .logo a {
-      color: #fff;
-    }
-
-    #header .logo img {
-      max-height: 40px;
-    }
-
-    .scrolled-offset {
-      margin-top: 70px;
-    }
-
-    @media (max-width: 991px) {
-      .scrolled-offset {
-        margin-top: 60px;
-      }
-    }
-
-    /*--------------------------------------------------------------
-    # Header Social Links
-    --------------------------------------------------------------*/
-    .header-social-links {
-      padding-left: 20px;
-    }
-
-    .header-social-links a {
-      color: rgba(255, 255, 255, 0.6);
-      margin-left: 10px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: 0.3s;
-    }
-
-    .header-social-links a i {
-      line-height: 0;
-    }
-
-    .header-social-links a:hover {
-      color: #fff;
-    }
-
-    @media (max-width: 768px) {
-      .header-social-links {
-        padding: 0 15px 0 0;
-      }
-    }
-
-    /*--------------------------------------------------------------
-    # Navigation Menu
-    --------------------------------------------------------------*/
-    /**
-    * Desktop Navigation 
-    */
-    .navbar {
-      padding: 0;
-    }
-
-    .navbar ul {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      list-style: none;
-      align-items: center;
-    }
-
-    .navbar li {
-      position: relative;
-    }
-
-    .navbar>ul>li {
-      white-space: nowrap;
-      padding: 10px 12px;
-    }
-
-    .navbar a,
-    .navbar a:focus {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 3px;
-      font-size: 15px;
-      font-weight: 600;
-      white-space: nowrap;
-      transition: 0.3s;
-      color: white;
-      position: relative;
-    }
-
-    .navbar a i,
-    .navbar a:focus i {
-      font-size: 12px;
-      line-height: 0;
-      margin-left: 5px;
-    }
-
-    .navbar>ul>li>a:before {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 2px;
-      bottom: -7px;
-      left: 0;
-      background-color: #ff7f5d;
-      visibility: hidden;
-      width: 0px;
-      transition: all 0.3s ease-in-out 0s;
-    }
-
-    .navbar a:hover:before,
-    .navbar li:hover>a:before,
-    .navbar .active:before {
-      visibility: visible;
-      width: 100%;
-    }
-
-    .navbar a:hover,
-    .navbar .active,
-    .navbar .active:focus,
-    .navbar li:hover>a {
-      color: #fff;
-    }
-
-    .navbar .dropdown ul {
-      display: block;
-      position: absolute;
-      left: 12px;
-      top: calc(100% + 30px);
-      margin: 0;
-      padding: 10px 0;
-      z-index: 99;
-      opacity: 0;
-      visibility: hidden;
-      background: #fff;
-      box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
-      transition: 0.3s;
-    }
-
-    .navbar .dropdown ul li {
-      min-width: 200px;
-    }
-
-    .navbar .dropdown ul a {
-      padding: 10px 20px;
-      font-size: 14px;
-      text-transform: none;
-      font-weight: 500;
-      color: #150517;
-    }
-
-    .navbar .dropdown ul a i {
-      font-size: 12px;
-    }
-
-    .navbar .dropdown ul a:hover,
-    .navbar .dropdown ul .active:hover,
-    .navbar .dropdown ul li:hover>a {
-      color: #ff7f5d;
-    }
-
-    .navbar .dropdown:hover>ul {
-      opacity: 1;
-      top: 100%;
-      visibility: visible;
-    }
-
-    .navbar .dropdown .dropdown ul {
-      top: 0;
-      left: calc(100% - 30px);
-      visibility: hidden;
-    }
-
-    .navbar .dropdown .dropdown:hover>ul {
-      opacity: 1;
-      top: 0;
-      left: 100%;
-      visibility: visible;
-    }
-
-    @media (max-width: 1366px) {
-      .navbar .dropdown .dropdown ul {
-        left: -90%;
-      }
-
-      .navbar .dropdown .dropdown:hover>ul {
-        left: -100%;
-      }
-    }
-
-    /**
-    * Mobile Navigation 
-    */
-    .mobile-nav-toggle {
-      color: #fff;
-      font-size: 28px;
-      cursor: pointer;
-      display: none;
-      line-height: 0;
-      transition: 0.5s;
-    }
-
-    @media (max-width: 991px) {
-      .mobile-nav-toggle {
-        display: block;
-      }
-
-      .navbar ul {
-        display: none;
-      }
-    }
-
-    .navbar-mobile {
-      position: fixed;
-      overflow: hidden;
-      top: 0;
-      right: 0;
-      left: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.9);
-      transition: 0.3s;
-      z-index: 999;
-    }
-
-    .navbar-mobile .mobile-nav-toggle {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-    }
-
-    .navbar-mobile ul {
-      display: block;
-      position: absolute;
-      top: 55px;
-      right: 15px;
-      bottom: 15px;
-      left: 15px;
-      padding: 10px 0;
-      background-color: #fff;
-      overflow-y: auto;
-      transition: 0.3s;
-    }
-
-    .navbar-mobile a,
-    .navbar-mobile a:focus {
-      padding: 10px 20px;
-      font-size: 15px;
-      color: #150517;
-    }
-
-    .navbar-mobile>ul>li {
-      padding: 0;
-    }
-
-    .navbar-mobile a:hover:before,
-    .navbar-mobile li:hover>a:before,
-    .navbar-mobile .active:before {
-      visibility: hidden;
-    }
-
-    .navbar-mobile a:hover,
-    .navbar-mobile .active,
-    .navbar-mobile li:hover>a {
-      color: #ff7f5d;
-    }
-
-    .navbar-mobile .getstarted,
-    .navbar-mobile .getstarted:focus {
-      margin: 15px;
-    }
-
-    .navbar-mobile .dropdown ul {
-      position: static;
-      display: none;
-      margin: 10px 20px;
-      padding: 10px 0;
-      z-index: 99;
-      opacity: 1;
-      visibility: visible;
-      background: #fff;
-      box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
-    }
-
-    .navbar-mobile .dropdown ul li {
-      min-width: 200px;
-    }
-
-    .navbar-mobile .dropdown ul a {
-      padding: 10px 20px;
-    }
-
-    .navbar-mobile .dropdown ul a i {
-      font-size: 12px;
-    }
-
-    .navbar-mobile .dropdown ul a:hover,
-    .navbar-mobile .dropdown ul .active:hover,
-    .navbar-mobile .dropdown ul li:hover>a {
-      color: #ff7f5d;
-    }
-
-    .navbar-mobile .dropdown>.dropdown-active {
-      display: block;
-    }
-
-    /*--------------------------------------------------------------
-    # Hero Section
-    --------------------------------------------------------------*/
-    #hero {
-      width: 100%;
-      height: 100vh;
-      background: url("../img/cruiseship.avif") top center;
-      background-size: cover;
-      position: relative;
-      padding: 0;
-    }
-
-    @media (max-width: 992px) {
-      #hero {
-        margin-bottom: -60px;
-      }
-    }
-
-    #hero:before {
-      content: "";
-      background: rgba(21, 5, 23, 0.5) linear-gradient(rgba(26, 0, 33, 0.5) 0%, rgba(26, 0, 33, 0.5) 5%, rgba(38, 6, 51, 0.5) 40%, rgba(147, 47, 69, 0.7) 76%, rgba(236, 97, 93, 0.7) 94%, rgba(236, 97, 93, 0.5) 100%) repeat scroll 0% 0%;
-      position: absolute;
-      bottom: 0;
-      top: 0;
-      left: 0;
-      right: 0;
-    }
-
-    #hero .hero-container {
-      position: absolute;
-      bottom: 0;
-      top: 0;
-      left: 15px;
-      right: 15px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      text-align: center;
-    }
-
-    #hero h1 {
-      margin: 0;
-      font-size: 64px;
-      font-weight: 700;
-      line-height: 56px;
-      text-transform: uppercase;
-      color: #fff;
-    }
-
-    #hero h2 {
-      color: #eee;
-      margin: 15px 0 0 0;
-      font-size: 24px;
-    }
-
-    #hero .btn-get-started {
-      font-family: "Raleway", sans-serif;
-      font-weight: 500;
-      font-size: 16px;
-      letter-spacing: 1px;
-      display: inline-block;
-      padding: 10px 40px;
-      border-radius: 4px;
-      transition: 0.5s;
-      margin-top: 30px;
-      border: 2px solid #fff;
-      color: #fff;
-    }
-
-    #hero .btn-get-started:hover {
-      background: #ff7f5d;
-      border: 2px solid #ff7f5d;
-    }
-
-    @media (min-width: 1024px) {
-      #hero {
-        background-attachment: fixed;
-      }
-    }
-
-    @media (max-width: 768px) {
-      #hero h1 {
-        font-size: 30px;
-        line-height: 36px;
-      }
-
-      #hero h2 {
-        font-size: 18px;
-        line-height: 24px;
-      }
-    }
-
-    /*--------------------------------------------------------------
-    # Sections General
-    --------------------------------------------------------------*/
-    section {
-      padding: 60px 0;
-      overflow: hidden;
-    }
-
-    .section-bg {
-      background-color: #fafafa;
-    }
-
-    .section-title {
-      text-align: center;
-      padding-bottom: 30px;
-    }
-
-    .section-title h2 {
-      font-size: 32px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      padding-bottom: 20px;
-      position: relative;
-    }
-
-    .section-title h2::after {
-      content: "";
-      position: absolute;
-      display: block;
-      width: 50px;
-      height: 3px;
-      background: #ff7f5d;
-      bottom: 0;
-      left: calc(50% - 25px);
-    }
-
-    .section-title p {
-      margin-bottom: 0;
-      color: #919191;
-      font-size: 14px;
-    }
-
-    /*--------------------------------------------------------------
-    # About
-    --------------------------------------------------------------*/
-    .about .content h3 {
-      font-weight: 600;
-      font-size: 26px;
-    }
-
-    .about .content ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .about .content ul li {
-      padding-left: 28px;
-      position: relative;
-    }
-
-    .about .content ul li+li {
-      margin-top: 10px;
-    }
-
-    .about .content ul i {
-      position: absolute;
-      left: 0;
-      top: 2px;
-      font-size: 20px;
-      color: #ff7f5d;
-      line-height: 1;
-    }
-
-    .about .content p:last-child {
-      margin-bottom: 0;
-    }
-
-    .about .content .btn-learn-more {
-      font-family: "Raleway", sans-serif;
-      font-weight: 600;
-      font-size: 14px;
-      letter-spacing: 1px;
-      display: inline-block;
-      padding: 12px 32px;
-      border-radius: 5px;
-      transition: 0.3s;
-      line-height: 1;
-      color: #ff7f5d;
-      animation-delay: 0.8s;
-      margin-top: 6px;
-      border: 2px solid #ff7f5d;
-    }
-
-    .about .content .btn-learn-more:hover {
-      background: #ff7f5d;
-      color: #fff;
-      text-decoration: none;
-    }
-
-    /*--------------------------------------------------------------
-    # Services
-    --------------------------------------------------------------*/
-    .services .icon-box {
-      padding: 30px;
-      position: relative;
-      overflow: hidden;
-      border-radius: 10px;
-      background: #fff;
-      box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1);
-      transition: all 0.3s ease-in-out;
-      height: 100%;
-    }
-
-    .services .icon-box:hover {
-      transform: translateY(-5px);
-    }
-
-    .services .icon {
-      position: absolute;
-      left: -20px;
-      top: calc(50% - 30px);
-    }
-
-    .services .icon i {
-      font-size: 64px;
-      line-height: 1;
-      transition: 0.5s;
-    }
-
-    .services .title {
-      margin-left: 40px;
-      font-weight: 700;
-      margin-bottom: 15px;
-      font-size: 18px;
-    }
-
-    .services .title a {
-      color: #111;
-    }
-
-    .services .icon-box:hover .title a {
-      color: #ff7f5d;
-    }
-
-    .services .description {
-      font-size: 14px;
-      margin-left: 40px;
-      line-height: 24px;
-      margin-bottom: 0;
-    }
-
-    /*--------------------------------------------------------------
-    # Portfolio
-    --------------------------------------------------------------*/
-    .portfolio #portfolio-flters {
-      list-style: none;
-      margin-bottom: 20px;
-    }
-
-    .portfolio #portfolio-flters li {
-      cursor: pointer;
-      display: inline-block;
-      margin: 0 15px 10px 15px;
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 1;
-      text-transform: uppercase;
-      color: #444444;
-      transition: all 0.3s ease-in-out;
-    }
-
-    .portfolio #portfolio-flters li:hover,
-    .portfolio #portfolio-flters li.filter-active {
-      color: #ff7f5d;
-    }
-
-    .portfolio #portfolio-flters li.filter-active::before,
-    .portfolio #portfolio-flters li.filter-active::after {
-      color: #ff7f5d;
-    }
-
-    .portfolio .portfolio-item {
-      margin-bottom: 30px;
-    }
-
-    .portfolio .portfolio-item .portfolio-img {
-      overflow: hidden;
-    }
-
-    .portfolio .portfolio-item .portfolio-img img {
-      transition: all 0.5s ease-in-out;
-    }
-
-    .portfolio .portfolio-item .portfolio-info {
-      opacity: 0;
-      position: absolute;
-      left: 15px;
-      bottom: 0;
-      z-index: 3;
-      right: 15px;
-      transition: all ease-in-out 0.3s;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 10px 15px;
-    }
-
-    .portfolio .portfolio-item .portfolio-info h4 {
-      font-size: 18px;
-      color: #fff;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 0px;
-    }
-
-    .portfolio .portfolio-item .portfolio-info p {
-      color: white;
-      font-size: 14px;
-      margin-bottom: 0;
-    }
-
-    .portfolio .portfolio-item .portfolio-info .preview-link,
-    .portfolio .portfolio-item .portfolio-info .details-link {
-      position: absolute;
-      right: 40px;
-      font-size: 24px;
-      top: calc(50% - 18px);
-      color: #fff;
-      transition: 0.3s;
-    }
-
-    .portfolio .portfolio-item .portfolio-info .preview-link:hover,
-    .portfolio .portfolio-item .portfolio-info .details-link:hover {
-      color: #ff7f5d;
-    }
-
-    .portfolio .portfolio-item .portfolio-info .details-link {
-      right: 10px;
-    }
-
-    .portfolio .portfolio-item:hover .portfolio-img img {
-      transform: scale(1.2);
-    }
-
-    .portfolio .portfolio-item:hover .portfolio-info {
-      opacity: 1;
-    }
-
-    /*--------------------------------------------------------------
-    # Pricing
-    --------------------------------------------------------------*/
-    .pricing .box {
-      padding: 20px;
-      background: #fff;
-      text-align: center;
-      box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.12);
-      border-radius: 5px;
-      position: relative;
-      overflow: hidden;
-      height: 100%;
-    }
-
-    .pricing h3 {
-      font-weight: 400;
-      margin: -20px -20px 20px -20px;
-      padding: 20px 15px;
-      font-size: 16px;
-      font-weight: 600;
-      color: #777777;
-      background: #f8f8f8;
-    }
-
-    .pricing h4 {
-      font-size: 36px;
-      color: #ff7f5d;
-      font-weight: 600;
-      font-family: "Poppins", sans-serif;
-      margin-bottom: 20px;
-    }
-
-    .pricing h4 sup {
-      font-size: 20px;
-      top: -15px;
-      left: -3px;
-    }
-
-    .pricing h4 span {
-      color: #bababa;
-      font-size: 16px;
-      font-weight: 300;
-    }
-
-    .pricing ul {
-      padding: 0;
-      list-style: none;
-      color: #444444;
-      text-align: center;
-      line-height: 20px;
-      font-size: 14px;
-    }
-
-    .pricing ul li {
-      padding-bottom: 16px;
-    }
-
-    .pricing ul i {
-      color: #ff7f5d;
-      font-size: 18px;
-      padding-right: 4px;
-    }
-
-    .pricing ul .na {
-      color: #ccc;
-      text-decoration: line-through;
-    }
-
-    .pricing .btn-wrap {
-      margin: 20px -20px -20px -20px;
-      padding: 20px 15px;
-      background: #f8f8f8;
-      text-align: center;
-    }
-
-    .pricing .btn-buy {
-      background: #ff7f5d;
-      display: inline-block;
-      padding: 8px 35px 9px 35px;
-      border-radius: 4px;
-      color: #fff;
-      transition: none;
-      font-size: 14px;
-      font-weight: 400;
-      font-family: "Raleway", sans-serif;
-      font-weight: 600;
-      transition: 0.3s;
-    }
-
-    .pricing .btn-buy:hover {
-      background: #ff9377;
-    }
-
-    .pricing .featured h3 {
-      color: #fff;
-      background: #ff7f5d;
-    }
-
-    /*--------------------------------------------------------------
-    # Contact
-    --------------------------------------------------------------*/
-    .contact .info {
-      width: 100%;
-      background: #fff;
-    }
-
-    .contact .info i {
-      font-size: 20px;
-      color: #ff7f5d;
-      float: left;
-      width: 44px;
-      height: 44px;
-      background: #fff8f6;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 50px;
-      transition: all 0.3s ease-in-out;
-    }
-
-    .contact .info h4 {
-      padding: 0 0 0 60px;
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 5px;
-      color: #150517;
-    }
-
-    .contact .info p {
-      padding: 0 0 0 60px;
-      margin-bottom: 0;
-      font-size: 14px;
-      color: #62176b;
-    }
-
-    .contact .info .email,
-    .contact .info .phone {
-      margin-top: 40px;
-    }
-
-    .contact .info .email:hover i,
-    .contact .info .address:hover i,
-    .contact .info .phone:hover i {
-      background: #ff7f5d;
-      color: #fff;
-    }
-
-    .contact .php-email-form {
-      width: 100%;
-      background: #fff;
-    }
-
-    .contact .php-email-form .form-group {
-      padding-bottom: 8px;
-    }
-
-    .contact .php-email-form .error-message {
-      display: none;
-      color: #fff;
-      background: #ed3c0d;
-      text-align: left;
-      padding: 15px;
-      font-weight: 600;
-    }
-
-    .contact .php-email-form .error-message br+br {
-      margin-top: 25px;
-    }
-
-    .contact .php-email-form .sent-message {
-      display: none;
-      color: #fff;
-      background: #18d26e;
-      text-align: center;
-      padding: 15px;
-      font-weight: 600;
-    }
-
-    .contact .php-email-form .loading {
-      display: none;
-      background: #fff;
-      text-align: center;
-      padding: 15px;
-    }
-
-    .contact .php-email-form .loading:before {
-      content: "";
-      display: inline-block;
-      border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      margin: 0 10px -6px 0;
-      border: 3px solid #18d26e;
-      border-top-color: #eee;
-      animation: animate-loading 1s linear infinite;
-    }
-
-    .contact .php-email-form input,
-    .contact .php-email-form textarea {
-      border-radius: 4px;
-      box-shadow: none;
-      font-size: 14px;
-    }
-
-    .contact .php-email-form input:focus,
-    .contact .php-email-form textarea:focus {
-      border-color: #ff7f5d;
-    }
-
-    .contact .php-email-form input {
-      height: 44px;
-    }
-
-    .contact .php-email-form textarea {
-      padding: 10px 12px;
-    }
-
-    .contact .php-email-form button[type=submit] {
-      background: #ff7f5d;
-      border: 0;
-      padding: 10px 24px;
-      color: #fff;
-      transition: 0.4s;
-      border-radius: 4px;
-    }
-
-    .contact .php-email-form button[type=submit]:hover {
-      background: #ff9377;
-    }
-
-    @keyframes animate-loading {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-    /*--------------------------------------------------------------
-    # Footer
-    --------------------------------------------------------------*/
-    #footer {
-      background: url("../img/footer-bg.jpg") center center no-repeat;
-      color: #fff;
-      font-size: 14px;
-      position: relative;
-    }
-
-    #footer::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      background: rgba(2, 0, 2, 0.6);
-      z-index: 1;
-    }
-
-    #footer .footer-top {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 80px 0;
-    }
-
-    #footer .footer-top h3 {
-      font-size: 36px;
-      font-weight: 700;
-      color: #fff;
-      position: relative;
-      font-family: "Poppins", sans-serif;
-      padding-bottom: 0;
-      margin-bottom: 0;
-    }
-
-    #footer .footer-top p {
-      font-size: 15;
-      font-style: italic;
-      margin: 30px 0 0 0;
-      padding: 0;
-    }
-
-    #footer .footer-top .footer-newsletter {
-      text-align: center;
-      font-size: 15px;
-      margin-top: 30px;
-    }
-
-    #footer .footer-top .footer-newsletter form {
-      background: #fff;
-      padding: 6px 10px;
-      position: relative;
-      border-radius: 4px;
-      box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
-      text-align: left;
-    }
-
-    #footer .footer-top .footer-newsletter form input[type=email] {
-      border: 0;
-      padding: 4px 8px;
-      width: calc(100% - 100px);
-    }
-
-    #footer .footer-top .footer-newsletter form input[type=submit] {
-      position: absolute;
-      top: 0;
-      right: -1px;
-      bottom: 0;
-      border: 0;
-      background: none;
-      font-size: 16px;
-      padding: 0 20px;
-      background: #ff7f5d;
-      color: #fff;
-      transition: 0.3s;
-      border-radius: 0 4px 4px 0;
-      box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    #footer .footer-top .footer-newsletter form input[type=submit]:hover {
-      background: #ff9377;
-    }
-
-    #footer .footer-top .social-links {
-      margin-top: 30px;
-    }
-
-    #footer .footer-top .social-links a {
-      font-size: 18px;
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      line-height: 1;
-      padding: 8px 0;
-      margin-right: 4px;
-      border-radius: 4px;
-      text-align: center;
-      width: 36px;
-      height: 36px;
-      transition: 0.3s;
-    }
-
-    #footer .footer-top .social-links a:hover {
-      background: #ff7f5d;
-      color: #fff;
-      text-decoration: none;
-    }
-
-    #footer .footer-bottom {
-      border-top: 1px solid #3b0e41;
-      z-index: 2;
-      position: relative;
-      padding-top: 40px;
-      padding-bottom: 40px;
-    }
-
-    #footer .copyright {
-      float: left;
-    }
-
-    #footer .credits {
-      float: right;
-      font-size: 13px;
-    }
-
-    @media (max-width: 768px) {
-
-      #footer .copyright,
-      #footer .credits {
-        float: none;
-        text-align: center;
-      }
-
-      #footer .credits {
-        padding-top: 5px;
-      }
-    }
-  </style>
+  <link href="assets/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -1232,16 +69,16 @@
         <div class="row content">
           <div class="col-lg-12">
             <p>
-              Embark on the voyage of a lifetime with Cruise Everywhere! cruises, where luxury meets adventure on the high seas. Our state-of-the-art cruise ships offer unparalleled comfort and elegance, featuring world-class dining, exhilarating entertainment, and serene wellness retreats. Each journey is meticulously crafted to provide breathtaking excursions and unforgettable experiences at exotic destinations. From sun-soaked Caribbean beaches to the majestic fjords of Alaska, Cruise Everywhere! ensures every moment on board is filled with indulgence and discovery. Sail with us and discover a world where your dreams set sail.
+              Embark on the voyage of a lifetime with Cruise Everywhere! cruises, where luxury meets adventure on the high seas.  Our state-of-the-art cruise ships offer unparalleled comfort and elegance, featuring world-class dining, exhilarating entertainment, and serene wellness retreats.  Each journey is meticulously crafted to provide breathtaking excursions and unforgettable experiences at exotic destinations.  From sun-soaked Caribbean beaches to the majestic fjords of Alaska, Cruise Everywhere! ensures every moment on board is filled with indulgence and discovery.  Sail with us and discover a world where your dreams set sail. 
             </p>
             <ul>
-                <li><i class="ri-check-double-line"></i> <strong>Fleet Size:</strong> 15 state-of-the-art cruise ships</li>
-                <li><i class="ri-check-double-line"></i> <strong>Passenger Capacity:</strong> Ranges from 1,500 to 5,000 passengers per ship</li>
-                <li><i class="ri-check-double-line"></i> <strong>Crew Members:</strong> Approximately 1,200 crew members per ship, ensuring a high crew-to-passenger ratio for personalized service</li>
-                <li><i class="ri-check-double-line"></i> <strong>Destinations:</strong> Over 100 global destinations including the Caribbean, Mediterranean, Northern Europe, Alaska, Australia, and Mexico</li>
-                <li><i class="ri-check-double-line"></i> <strong>Dining Options:</strong> Over 20 diverse dining venues per ship, including Michelin-starred chef collaborations and themed specialty restaurants</li>
-                <li><i class="ri-check-double-line"></i> <strong>Entertainment:</strong> Multiple theaters and live performance venues with Broadway-style shows, concerts, and comedy acts</li>
-                <li><i class="ri-check-double-line"></i> <strong>Wellness Facilities:</strong> Full-service spas, fitness centers, yoga studios, and wellness programs</li>
+                <li><i class="ri-check-double-line"></i> <strong>Fleet Size:</strong> 15 state-of-the-art cruise ships </li>
+                <li><i class="ri-check-double-line"></i> <strong>Passenger Capacity:</strong> Ranges from 1,500 to 5,000 passengers per ship </li>
+                <li><i class="ri-check-double-line"></i> <strong>Crew Members:</strong> Approximately 1,200 crew members per ship, ensuring a high crew-to-passenger ratio for personalized service </li>
+                <li><i class="ri-check-double-line"></i> <strong>Destinations:</strong> Over 100 global destinations including the Caribbean, Mediterranean, Northern Europe, Alaska, Australia, and Mexico </li>
+                <li><i class="ri-check-double-line"></i> <strong>Dining Options:</strong> Over 20 diverse dining venues per ship, including Michelin-starred chef collaborations and themed specialty restaurants </li>
+                <li><i class="ri-check-double-line"></i> <strong>Entertainment:</strong> Multiple theaters and live performance venues with Broadway-style shows, concerts, and comedy acts </li>
+                <li><i class="ri-check-double-line"></i> <strong>Wellness Facilities:</strong> Full-service spas, fitness centers, yoga studios, and wellness programs </li>
             </ul>
           </div>
         </div>
@@ -1252,7 +89,7 @@
 
         <div class="section-title">
           <h2>Cruises</h2>
-          <p>You're about to discover just what awaits you on a Cruise Everywhere cruise. Start by exploring the incredible ports we visit and the fun things to do, both on the ship and ashore.</p>
+          <p>You're about to discover just what awaits you on a Cruise Everywhere cruise.<br> Start by exploring the incredible ports we visit and the fun things to do, both on the ship and ashore. </p>
         </div>
 
         <div class="row">
@@ -1260,42 +97,42 @@
             <div class="icon-box">
               <div class="icon"><i class="bi bi-brightness-high" style="color: #ff689b;"></i></div>
               <h4 class="title"><a href="">Caribbean</a></h4>
-              <p class="description">With more than 5,000 islands and cays spread across this amazing region, there's a lot of paradise to see. The mild climate means it doesn't matter what time of year you visit. A Caribbean cruise takes you to some of the coolest little hotspots... stretching across the world's designated hotspot.</p>
+              <p class="description">With more than 5,000 islands and cays spread across this amazing region, there's a lot of paradise to see. The mild climate means it doesn't matter what time of year you visit. A Caribbean cruise takes you to some of the coolest little hotspots... stretching across the world's designated hotspot. </p>
             </div>
           </div>
           <div class="col-lg-4 col-md-6 mt-4">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-water" style="color: #e9bf06;"></i></div>
               <h4 class="title"><a href="">The Bahamas</a></h4>
-              <p class="description">The Bahamas to truly appreciate this classic cruise destination. On this 700-strong string of sun-splashed islands dotting the blue Atlantic, the living's easy. Enjoy sailing, snorkeling, strolling pearly pink-sand beaches, and swimming through crystalline turquoise seas on a Bahamas cruise.</p>
+              <p class="description">The Bahamas to truly appreciate this classic cruise destination. On this 700-strong string of sun-splashed islands dotting the blue Atlantic, the living's easy. Enjoy sailing, snorkeling, strolling pearly pink-sand beaches, and swimming through crystalline turquoise seas on a Bahamas cruise. </p>
             </div>
           </div>
           <div class="col-lg-4 col-md-6 mt-4">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-signpost-2" style="color: #3fcdc7;"></i></div>
               <h4 class="title"><a href="">Mexico</a></h4>
-              <p class="description">Whether your Mexico cruise style is west-coast Riviera with its Pacific charm, east-coast Caribbean and its island mojo... or perhaps Baja and its out-of-this-world coastal scenery, you'll find Mexico central to a great vacation.</p>
+              <p class="description">Whether your Mexico cruise style is west-coast Riviera with its Pacific charm, east-coast Caribbean and its island mojo... or perhaps Baja and its out-of-this-world coastal scenery, you'll find Mexico central to a great vacation. </p>
             </div>
           </div>
           <div class="col-lg-4 col-md-6 mt-4">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-sunrise" style="color:#41cf2e;"></i></div>
               <h4 class="title"><a href="">Australia</a></h4>
-              <p class="description">Whether you're after a quick getaway, or a longer holiday you'll remember forever, an Australian cruise holiday with amazing shore excursions is a great way to relax and take some time out. Excursions fit every lifestyle whether snorkelling the world's largest reef system, relaxint on Airlie Beach, or indulging in the foodie tastes of Tasmania.</p>
+              <p class="description">Whether you're after a quick getaway, or a longer holiday you'll remember forever, an Australian cruise holiday with amazing shore excursions is a great way to relax and take some time out. Excursions fit every lifestyle whether snorkelling the world's largest reef system, relaxint on Airlie Beach, or indulging in the foodie tastes of Tasmania. </p>
             </div>
           </div>
           <div class="col-lg-4 col-md-6 mt-4">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-binoculars" style="color: #d6ff22;"></i></div>
               <h4 class="title"><a href="">Europe</a></h4>
-              <p class="description">Few places in the world pack in as much culture per square meter as Europe does. There's so much variety across the continent and its islands, you have options for experiencing many of these places by sea. Western Europe cruises visit the region from which the explorers of the New World kicked off their voyages.</p>
+              <p class="description">Few places in the world pack in as much culture per square meter as Europe does. There's so much variety across the continent and its islands, you have options for experiencing many of these places by sea. Western Europe cruises visit the region from which the explorers of the New World kicked off their voyages. </p>
             </div>
           </div>
           <div class="col-lg-4 col-md-6 mt-4">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-snow" style="color: #4680ff;"></i></div>
               <h4 class="title"><a href="">Alaska</a></h4>
-              <p class="description">If you're looking for a cruise vacation that's a little bit out of the way and a little bit out of the ordinary, make an Alaska cruise your first choice. Alaska is a natural wonder through and through, and the coastal panhandle region is perhaps the most stunning. Cruising Alaska will also give you a first-row ticket to the best of nature including fjords, wildlife and mountains galore.</p>
+              <p class="description">If you're looking for a cruise vacation that's a little bit out of the way and a little bit out of the ordinary, make an Alaska cruise your first choice. Alaska is a natural wonder through and through, and the coastal panhandle region is perhaps the most stunning. Cruising Alaska will also give you a first-row ticket to the best of nature including fjords, wildlife and mountains galore. </p>
             </div>
           </div>
         </div>
@@ -1306,89 +143,89 @@
 
         <div class="section-title">
           <h2>Portfolio</h2>
-          <p>Check out some of the amazing views that can be experienced on any of the the fascinating cruising excursions.</p>
+          <p>Check out some of the amazing views that can be experienced on any of the the fascinating cruising excursions!</p>
         </div>
 
         <div class="row portfolio-container">
 
           <div class="col-lg-4 col-md-6 portfolio-item">
-            <div class="portfolio-img"><img src="assets/img/caribbean.avif" class="img-fluid" alt="Caribbean"></div>
+            <div class="portfolio-img"><img src="img/caribbean.avif" class="img-fluid" alt="Caribbean"></div>
             <div class="portfolio-info">
               <h4>Caribbean</h4>
               <p>Mahogany Bay</p>
-              <a href="assets/img/caribbean.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Caribbean: Mahogany Bay"><i class="bx bx-plus"></i></a>
+              <a href="img/caribbean.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Caribbean: Mahogany Bay"><i class="bx bx-plus"></i></a>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 portfolio-item">
-            <div class="portfolio-img"><img src="assets/img/bahamas-half-moon-cay.avif" class="img-fluid" alt="The Bahamas"></div>
+            <div class="portfolio-img"><img src="img/bahamas-half-moon-cay.avif" class="img-fluid" alt="The Bahamas"></div>
             <div class="portfolio-info">
               <h4>Bahamas</h4>
               <p>Half Moon Cay</p>
-              <a href="assets/img/bahamas-half-moon-cay.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Bahamas: Half Moon Cay"><i class="bx bx-plus"></i></a>
+              <a href="img/bahamas-half-moon-cay.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Bahamas: Half Moon Cay"><i class="bx bx-plus"></i></a>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 portfolio-item">
-            <div class="portfolio-img"><img src="assets/img/cabo.jpg" class="img-fluid" alt="Mexico"></div>
+            <div class="portfolio-img"><img src="img/cabo.jpg" class="img-fluid" alt="Mexico"></div>
             <div class="portfolio-info">
               <h4>Mexico</h4>
               <p>Cabo San Lucas</p>
-              <a href="assets/img/cabo.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Mexico: Cabo San Lucas"><i class="bx bx-plus"></i></a>
+              <a href="img/cabo.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Mexico: Cabo San Lucas"><i class="bx bx-plus"></i></a>
             </div>
           </div>
           
           <div class="col-lg-4 col-md-6 portfolio-item">
-            <div class="portfolio-img"><img src="assets/img/cairns.avif" class="img-fluid" alt="Australia"></div>
+            <div class="portfolio-img"><img src="img/cairns.avif" class="img-fluid" alt="Australia"></div>
             <div class="portfolio-info">
               <h4>Australia</h4>
               <p>Cairns</p>
-              <a href="assets/img/cairns.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Australia: Cairns"><i class="bx bx-plus"></i></a>
+              <a href="img/cairns.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Australia: Cairns"><i class="bx bx-plus"></i></a>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 portfolio-item">
-            <div class="portfolio-img"><img src="assets/img/europe-port-dublin.avif" class="img-fluid" alt="Europe"></div>
+            <div class="portfolio-img"><img src="img/europe-port-dublin.avif" class="img-fluid" alt="Europe"></div>
             <div class="portfolio-info">
               <h4>Europe</h4>
               <p>Dublin, Ireland</p>
-              <a href="assets/img/europe-port-dublin.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Europe: Dublin, Ireland"><i class="bx bx-plus"></i></a>
+              <a href="img/europe-port-dublin.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Europe: Dublin, Ireland"><i class="bx bx-plus"></i></a>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 portfolio-item">
-            <div class="portfolio-img"><img src="assets/img/europe-naples.avif" class="img-fluid" alt="Europe"></div>
+            <div class="portfolio-img"><img src="img/europe-naples.avif" class="img-fluid" alt="Europe"></div>
             <div class="portfolio-info">
               <h4>Europe</h4>
               <p>Naples, Italy</p>
-              <a href="assets/img/europe-naples.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Europe: Naples, Italy"><i class="bx bx-plus"></i></a>
+              <a href="img/europe-naples.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Europe: Naples, Italy"><i class="bx bx-plus"></i></a>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 portfolio-item">
-            <div class="portfolio-img"><img src="assets/img/alaska-juneau.avif" class="img-fluid" alt="Alaska"></div>
+            <div class="portfolio-img"><img src="img/alaska-juneau.avif" class="img-fluid" alt="Alaska"></div>
             <div class="portfolio-info">
               <h4>Alaska</h4>
               <p>Juneau</p>
-              <a href="assets/img/alaska-juneau.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Alaska: Juneau"><i class="bx bx-plus"></i></a>
+              <a href="img/alaska-juneau.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Alaska: Juneau"><i class="bx bx-plus"></i></a>
             </div>
           </div>
           
           <div class="col-lg-4 col-md-6 portfolio-item">
-            <div class="portfolio-img"><img src="assets/img/melbourne.avif" class="img-fluid" alt="Australia"></div>
+            <div class="portfolio-img"><img src="img/melbourne.avif" class="img-fluid" alt="Australia"></div>
             <div class="portfolio-info">
               <h4>Australia</h4>
               <p>Melbourne</p>
-              <a href="assets/img/melbourne.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Australia: Melbourne"><i class="bx bx-plus"></i></a>
+              <a href="img/melbourne.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Australia: Melbourne"><i class="bx bx-plus"></i></a>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 portfolio-item">
-            <div class="portfolio-img"><img src="assets/img/alaska-endicott-arm-fjord.avif" class="img-fluid" alt="Alaska"></div>
+            <div class="portfolio-img"><img src="img/alaska-endicott-arm-fjord.avif" class="img-fluid" alt="Alaska"></div>
             <div class="portfolio-info">
               <h4>Alaska</h4>
               <p>Endicott Arm Fjord</p>
-              <a href="assets/img/alaska-endicott-arm-fjord.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Alaska: Endicott Arm Fjord"><i class="bx bx-plus"></i></a>
+              <a href="img/alaska-endicott-arm-fjord.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Alaska: Endicott Arm Fjord"><i class="bx bx-plus"></i></a>
             </div>
           </div>
 
@@ -1409,9 +246,9 @@
               <h3>Caribbean</h3>
               <h4><sup>$</sup>1500<span> / 7 days</span></h4>
               <ul>
-                <li>Snorkel great natural reefs in crystal-clear waters</li>
-                <li>Enjoy year-round tropical weather</li>
-                <li>Enjoy a beach view on horseback or beach chair</li>
+                <li>Snorkel great natural reefs in crystal-clear waters </li>
+                <li>Enjoy year-round tropical weather </li>
+                <li>Enjoy a beach view on horseback or beach chair </li>
               </ul>
             </div>
           </div>
@@ -1421,9 +258,9 @@
               <h3>The Bahamas</h3>
               <h4><sup>$</sup>800<span> / 4 days</span></h4>
               <ul>
-                <li>Swim and splash in sparkling waters</li>
-                <li>Taste the private destination life on Half Moon Cay and Princess Cays</li>
-                <li>Explore the expansive Atlantis resort</li>
+                <li>Swim and splash in sparkling waters </li>
+                <li>Taste the private destination life on Half Moon Cay and Princess Cays </li>
+                <li>Explore the expansive Atlantis resort </li>
               </ul>
             </div>
           </div>
@@ -1433,9 +270,9 @@
               <h3>Mexico</h3>
               <h4><sup>$</sup>950<span> / 5 days</span></h4>
               <ul>
-                <li>Check out the shopping scene for unique local crafts</li>
-                <li>Fly high with a view while parasailing</li>
-                <li>Get down to scuba and snuba</li>
+                <li>Check out the shopping scene for unique local crafts </li>
+                <li>Fly high with a view while parasailing </li>
+                <li>Get down to scuba and snuba </li>
               </ul>
             </div>
           </div>
@@ -1445,9 +282,9 @@
               <h3>Australia</h3>
               <h4><sup>$</sup>2300<span> / 10 days</span></h4>
               <ul>
-                  <li>Snorkel the world's largest reef system</li>
-                  <li>Indulging in the foodie tastes of Tasmania</li>
-                  <li>Soak up the Aussie sun in the Whitsundays or relax on Airlie Beach</li>
+                  <li>Snorkel the world's largest reef system </li>
+                  <li>Indulging in the foodie tastes of Tasmania </li>
+                  <li>Soak up the Aussie sun in the Whitsundays or relax on Airlie Beach </li>
               </ul>
             </div>
           </div>
@@ -1457,9 +294,9 @@
               <h3>Europe</h3>
               <h4><sup>$</sup>1700<span> / 8 days</span></h4>
               <ul>
-                <li>See some of nature's most dramatic landscapes</li>
-                <li>Explore historical buildings, ruins and cathedrals that are older than many countries</li>
-                <li>Check out museums and statues</li>
+                <li>See some of nature's most dramatic landscapes </li>
+                <li>Explore historical buildings, ruins and cathedrals that are older than many countries </li>
+                <li>Check out museums and statues </li>
               </ul>
             </div>
           </div>
@@ -1469,9 +306,9 @@
               <h3>Alaska</h3>
               <h4><sup>$</sup>1400<span> / 7 days</span></h4>
               <ul>
-                <li>Get up and go glacier-gazing, big time</li>
-                <li>Follow hiking trails to catch some grand scenery</li>
-                <li>Grab binoculars and whale-watch some big ones</li>
+                <li>Get up and go glacier-gazing, big time </li>
+                <li>Follow hiking trails to catch some grand scenery </li>
+                <li>Grab binoculars and whale-watch some big ones </li>
               </ul>
             </div>
           </div>
@@ -1484,7 +321,7 @@
 
         <div class="section-title">
           <h2>Contact</h2>
-          <p>Ready to schedule your next cruising adventure? Send us a message and we will be in touch as soon as possible!</p>
+          <p>Ready to schedule your next cruising adventure? Send us a message and we will be in touch as soon as possible! </p>
         </div>
 
         <div class="row mt-5">
