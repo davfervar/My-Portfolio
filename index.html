@@ -148,9 +148,8 @@
     body.education-view .hero-main-content { opacity: 0; pointer-events: none; }
     body.education-view .hero-education-content { transform: translateY(0); opacity: 1; pointer-events: all; }
     
-    /* MEJORA: Tipografía Fluida para el título principal */
     h2.view-title { 
-      font-size: clamp(2.5rem, 10vw, 4.5rem); /* Se adapta entre 2.5rem y 4.5rem */
+      font-size: clamp(2.5rem, 10vw, 4.5rem);
       font-weight: 700; margin-bottom: 15px; 
       background-size: 200% 200%; -webkit-background-clip: text; 
       background-clip: text; -webkit-text-fill-color: transparent; 
@@ -231,7 +230,7 @@
         font-size: 2rem; color: var(--text-secondary); cursor: pointer;
     }
     .modal-content h3 { color: var(--text-primary); margin-bottom: 20px; text-align: center; }
-    .contact-form .form-group { margin-bottom: 15px; }
+    .contact-form .form-group { margin-bottom: 15px; transition: opacity 0.5s; }
     .contact-form label { display: block; color: var(--text-secondary); margin-bottom: 5px; }
     .contact-form input, .contact-form textarea {
         width: 100%; padding: 10px; border: 1px solid var(--border-color);
@@ -243,9 +242,29 @@
     .contact-form button {
         width: 100%; padding: 12px; background-color: var(--secondary-color-blue); color: #fff;
         border: none; border-radius: 8px; font-size: 1rem; font-weight: 600;
-        cursor: pointer; transition: background-color 0.3s;
+        cursor: pointer; transition: background-color 0.3s, opacity 0.5s;
     }
     .contact-form button:hover { background-color: #3a86ff; }
+
+    /* === NUEVO ESTILO: Contenedor para el mensaje de estado del formulario === */
+    #form-status {
+      text-align: center;
+      padding: 20px;
+      border-radius: 8px;
+      display: none; /* Oculto por defecto */
+      margin-top: 20px;
+      font-size: 1.1rem;
+    }
+    #form-status.success {
+      background-color: rgba(4, 170, 109, 0.1);
+      color: #04AA6D;
+      border: 1px solid #04AA6D;
+    }
+    #form-status.error {
+      background-color: rgba(255, 68, 68, 0.1);
+      color: #ff4444;
+      border: 1px solid #ff4444;
+    }
 
     /* === ANIMACIÓN DE DESTELLO (LENTA) === */
     #flash-overlay {
@@ -257,76 +276,27 @@
     #flash-overlay.is-flashing { opacity: 1; }
 
     /* === MEDIA QUERIES PARA RESPONSIVE DESIGN === */
-
-    /* MEJORA: Para tablets y móviles grandes (hasta 768px) */
     @media (max-width: 768px) {
-      .view {
-        padding: 60px 20px; /* Reducir padding para más espacio */
-      }
-      .content-grid { 
-        flex-direction: column; 
-        margin-top: 30px;
-        gap: 20px;
-      }
-      .footer-content { 
-        flex-direction: column; 
-        gap: 25px; /* Aumentar espacio en el footer */
-        justify-content: center;
-        align-items: center; /* Centrar todo el contenido */
-      }
-      .top-navbar {
-        justify-content: center;
-        padding: 10px 15px; /* Reducir padding de la barra */
-      }
-      .navbar-left, .navbar-right {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-      }
+      .view { padding: 60px 20px; }
+      .content-grid { flex-direction: column; margin-top: 30px; gap: 20px; }
+      .footer-content { flex-direction: column; gap: 25px; justify-content: center; align-items: center; }
+      .top-navbar { justify-content: center; padding: 10px 15px; }
+      .navbar-left, .navbar-right { position: absolute; top: 50%; transform: translateY(-50%); }
       .navbar-left { left: 15px; }
       .navbar-right { right: 15px; }
-
-      /* Ajustar enlaces de navegación para que quepan */
-      .nav-links {
-        gap: 5px; /* Reducir el espacio entre enlaces */
-      }
-      .top-navbar .nav-links a {
-        padding: 6px 8px; /* Reducir padding de los enlaces */
-        font-size: 0.9rem; /* Reducir tamaño de fuente */
-      }
-
-      /* Ajustar posición del badge en móvil */
-      #linkedin-badge {
-        bottom: calc(100% + 15px); /* Colocarlo justo encima de los iconos */
-        left: 50%;
-        transform: translateX(-50%) translateY(10px);
-      }
+      .nav-links { gap: 5px; }
+      .top-navbar .nav-links a { padding: 6px 8px; font-size: 0.9rem; }
+      #linkedin-badge { bottom: calc(100% + 15px); left: 50%; transform: translateX(-50%) translateY(10px); }
     }
 
-    /* MEJORA: Ajustes finos para móviles pequeños (hasta 480px) */
     @media (max-width: 480px) {
-      .grid-item h4 {
-        font-size: 1.3rem;
-      }
-      .item-list li {
-        font-size: 1rem;
-      }
-      .top-navbar .nav-links a {
-        font-size: 0.8rem; /* Aún más pequeño para evitar saltos de línea */
-        padding: 5px 6px;
-      }
-       .nav-arrow {
-        width: 40px;
-        height: 40px;
-      }
-      .view-navigation {
-        padding: 0 15px;
-      }
-      .contact-form {
-        padding: 30px 20px;
-      }
+      .grid-item h4 { font-size: 1.3rem; }
+      .item-list li { font-size: 1rem; }
+      .top-navbar .nav-links a { font-size: 0.8rem; padding: 5px 6px; }
+      .nav-arrow { width: 40px; height: 40px; }
+      .view-navigation { padding: 0 15px; }
+      .contact-modal .modal-content { padding: 30px 20px; } /* Menos padding en modal */
     }
-
   </style>
 </head>
 <body id="page-body">
@@ -405,7 +375,7 @@
         <a href="mailto:davidfervc@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6ZM20 6L12 11L4 6H20ZM20 18H4V8L12 13L20 8V18Z"/></svg></a>
         <a id="linkedin-icon-link" href="https://linkedin.com/in/davidvargas" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z"/></svg></a>
         <a href="https://github.com/davidvargasc" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"/></svg></a>
-        <div id="linkedin-badge" class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="davidfervc" data-version="v1"></div>
+        <div id="linkedin-badge" class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="dark" data-type="VERTICAL" data-vanity="davidfervc" data-version="v1"></div>
       </div>
     </div>
   </footer>
@@ -414,7 +384,10 @@
     <div class="modal-content">
         <button class="modal-close-btn" id="contact-modal-close-btn">&times;</button>
         <h3 data-key="modalTitle">Ponte en Contacto</h3>
-        <form class="contact-form" action="https://formsubmit.co/davidfervc@gmail.com" method="POST">
+        
+        <div id="form-status"></div>
+        
+        <form class="contact-form" id="contact-form" action="https://formsubmit.co/davidfervc@gmail.com" method="POST">
             <div class="form-group">
                 <label for="name" data-key="modalName">Nombre</label>
                 <input type="text" id="name" name="name" required>
@@ -427,8 +400,10 @@
                 <label for="message" data-key="modalMessage">Mensaje</label>
                 <textarea id="message" name="message" required></textarea>
             </div>
-            <input type="hidden" name="_next" value="URL_DE_TU_PAGINA_DE_GRACIAS"> 
+            
             <input type="hidden" name="_subject" value="Nuevo Mensaje desde tu Portafolio!">
+            <input type="text" name="_honey" style="display:none">
+            
             <button type="submit" data-key="modalSend">Enviar Mensaje</button>
         </form>
     </div>
@@ -470,15 +445,12 @@
         
         langToggleButton.addEventListener('click', () => {
             const newLang = currentLanguage === 'es' ? 'en' : 'es';
-            
             flashOverlay.classList.add('is-flashing');
-            
             setTimeout(() => {
                 setLanguage(newLang);
                 setTimeout(() => {
                     flashOverlay.classList.remove('is-flashing');
                 }, 200);
-
             }, 600);
         });
 
@@ -494,7 +466,6 @@
                 linkedinBadge.dataset.theme = 'dark';
             }
             localStorage.setItem('theme', theme);
-
             if (typeof IN !== 'undefined' && IN.parse) {
                 linkedinBadge.innerHTML = '';
                 IN.parse(linkedinBadge.parentElement);
@@ -515,6 +486,65 @@
             if (e.target === contactModal) contactModal.classList.remove('is-visible');
         });
 
+        // === CAMBIO: Lógica completa para el formulario de contacto con fetch ===
+        const contactForm = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevenir la redirección por defecto
+            
+            const form = e.target;
+            const data = new FormData(form);
+            const action = form.action;
+
+            // Ocultar el botón y mostrar un estado de "enviando"
+            const submitButton = form.querySelector('button[type="submit"]');
+            submitButton.style.opacity = '0.5';
+            submitButton.disabled = true;
+
+            fetch(action, {
+                method: 'POST',
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    // Éxito en el envío
+                    formStatus.innerHTML = "¡Gracias! Tu mensaje ha sido enviado.";
+                    formStatus.className = 'success';
+                    formStatus.style.display = 'block';
+                    
+                    // Ocultar los campos del formulario
+                    form.querySelectorAll('.form-group').forEach(group => {
+                        group.style.display = 'none';
+                    });
+                    submitButton.style.display = 'none';
+                } else {
+                    // Error en el envío, pero la conexión fue exitosa
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            formStatus.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                        } else {
+                            formStatus.innerHTML = "Oops! Hubo un problema al enviar tu formulario.";
+                        }
+                        formStatus.className = 'error';
+                        formStatus.style.display = 'block';
+                        submitButton.style.opacity = '1';
+                        submitButton.disabled = false;
+                    })
+                }
+            }).catch(error => {
+                // Error de red o similar
+                formStatus.innerHTML = "Oops! Hubo un problema de red al enviar tu formulario.";
+                formStatus.className = 'error';
+                formStatus.style.display = 'block';
+                submitButton.style.opacity = '1';
+                submitButton.disabled = false;
+            });
+        });
+
+        // Lógica del resto de la página...
         const mainTitle = document.getElementById('main-title');
         const educationTitle = document.getElementById('education-title');
         let currentView = 'main';
