@@ -50,7 +50,7 @@
       color: var(--text-primary);
       background: var(--background-color);
       height: 100vh;
-      overflow: hidden; /* Evita el scroll en la vista principal */
+      overflow: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       transition: background-color 0.4s ease, color 0.4s ease;
@@ -295,8 +295,34 @@
 
     /* === MEDIA QUERIES PARA RESPONSIVE DESIGN === */
     @media (max-width: 768px) {
-      .view { padding: 60px 20px; }
-      .content-grid { flex-direction: column; margin-top: 30px; gap: 20px; }
+      /* ARREGLO FINAL: Vistas restauradas al diseño original no-scroll */
+      /* PERO con scroll interno en el area de contenido para evitar desbordamiento */
+      .view {
+        padding: 70px 20px 80px 20px; /* Padding para dejar espacio para header y footer fijos */
+      }
+      .content-grid {
+        flex-direction: column;
+        margin-top: 20px;
+        gap: 20px;
+        /* ARREGLO CLAVE: El scroll ahora es interno al content-grid */
+        overflow-y: auto;
+        flex-grow: 1; /* Permite que el grid ocupe el espacio vertical disponible */
+        padding: 15px;
+        /* Mejora estética para la barra de scroll */
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary-color) transparent;
+      }
+      .content-grid::-webkit-scrollbar {
+        width: 6px;
+      }
+      .content-grid::-webkit-scrollbar-thumb {
+        background-color: var(--primary-color);
+        border-radius: 3px;
+      }
+      .content-grid::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
       .footer-content { flex-direction: column; gap: 25px; justify-content: center; align-items: center; }
 
       .top-navbar {
@@ -314,39 +340,11 @@
       .navbar-actions { gap: 8px; }
       
       #linkedin-badge { bottom: calc(100% + 15px); left: 50%; transform: translateX(-50%) translateY(10px); }
-
-      body.skills-view,
-      body.projects-view,
-      body.education-view {
-          height: auto;
-          overflow-y: auto;
-      }
-      body.skills-view .hero,
-      body.projects-view .hero,
-      body.education-view .hero {
-          height: auto;
-      }
-      /* ARREGLO FINAL: Reducción drástica de padding en vistas con scroll */
-      body.skills-view .view,
-      body.projects-view .view,
-      body.education-view .view {
-          position: relative;
-          height: auto;
-          min-height: 100vh;
-          justify-content: flex-start;
-          padding-top: 70px;
-          padding-bottom: 50px;
-      }
-      body.skills-view .site-footer,
-      body.projects-view .site-footer,
-      body.education-view .site-footer {
-          position: relative;
-      }
       
-      /* ARREGLO FINAL: Reducción final de tamaño de flechas */
+      /* ARREGLO FINAL: Reducción final de tamaño de flechas a 32px */
       .nav-arrow {
-        width: 18px;
-        height: 18px;
+        width: 32px;
+        height: 32px;
       }
       .view-navigation {
         padding: 0 15px;
