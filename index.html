@@ -50,7 +50,7 @@
       color: var(--text-primary);
       background: var(--background-color);
       height: 100vh;
-      overflow: hidden;
+      overflow: hidden; /* Evita el scroll en la vista principal */
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       transition: background-color 0.4s ease, color 0.4s ease;
@@ -245,26 +245,26 @@
         cursor: pointer; transition: background-color 0.3s, opacity 0.5s;
     }
     .contact-form button:hover { background-color: #3a86ff; }
-
-    /* === NUEVO ESTILO: Contenedor para el mensaje de estado del formulario === */
+    
     #form-status {
       text-align: center;
-      padding: 20px;
+      padding: 10px;
       border-radius: 8px;
-      display: none; /* Oculto por defecto */
+      display: none;
       margin-top: 20px;
-      font-size: 1.1rem;
     }
-    #form-status.success {
-      background-color: rgba(4, 170, 109, 0.1);
-      color: #04AA6D;
-      border: 1px solid #04AA6D;
+    #form-status p { font-size: 1.1rem; margin-bottom: 15px; }
+    #form-status.success { background-color: rgba(4, 170, 109, 0.1); color: #04AA6D; border: 1px solid #04AA6D; }
+    #form-status.error { background-color: rgba(255, 68, 68, 0.1); color: #ff4444; border: 1px solid #ff4444; }
+    
+    #reset-form-btn {
+        padding: 8px 20px; background-color: var(--secondary-color-blue); color: #fff;
+        border: none; border-radius: 8px; cursor: pointer;
+        font-family: 'Poppins', sans-serif; font-weight: 500;
+        transition: background-color 0.3s, transform 0.3s;
+        display: none;
     }
-    #form-status.error {
-      background-color: rgba(255, 68, 68, 0.1);
-      color: #ff4444;
-      border: 1px solid #ff4444;
-    }
+    #reset-form-btn:hover { background-color: #3a86ff; transform: translateY(-2px); }
 
     /* === ANIMACIÓN DE DESTELLO (LENTA) === */
     #flash-overlay {
@@ -280,22 +280,67 @@
       .view { padding: 60px 20px; }
       .content-grid { flex-direction: column; margin-top: 30px; gap: 20px; }
       .footer-content { flex-direction: column; gap: 25px; justify-content: center; align-items: center; }
-      .top-navbar { justify-content: center; padding: 10px 15px; }
-      .navbar-left, .navbar-right { position: absolute; top: 50%; transform: translateY(-50%); }
-      .navbar-left { left: 15px; }
-      .navbar-right { right: 15px; }
-      .nav-links { gap: 5px; }
-      .top-navbar .nav-links a { padding: 6px 8px; font-size: 0.9rem; }
+
+      .top-navbar {
+        padding: 10px 15px;
+        justify-content: space-between;
+      }
+      .navbar-left { flex-grow: 0; flex-shrink: 0; }
+      .nav-links {
+        flex-grow: 1;
+        justify-content: center;
+        gap: 0;
+        margin: 0 5px;
+      }
+      .top-navbar .nav-links a { padding: 6px; font-size: 0.85rem; white-space: nowrap; }
+      .navbar-right { flex-grow: 0; flex-shrink: 0; }
+      .navbar-actions { gap: 8px; }
+      
       #linkedin-badge { bottom: calc(100% + 15px); left: 50%; transform: translateX(-50%) translateY(10px); }
+
+      body.skills-view,
+      body.projects-view,
+      body.education-view {
+          height: auto;
+          overflow-y: auto;
+      }
+      body.skills-view .hero,
+      body.projects-view .hero,
+      body.education-view .hero {
+          height: auto;
+      }
+      body.skills-view .view,
+      body.projects-view .view,
+      body.education-view .view {
+          position: relative;
+          height: auto;
+          min-height: 100vh;
+          justify-content: flex-start;
+          padding-top: 100px;
+          padding-bottom: 120px;
+      }
+      body.skills-view .site-footer,
+      body.projects-view .site-footer,
+      body.education-view .site-footer {
+          position: relative;
+          margin-top: -80px;
+      }
+      
+      /* ARREGLO: Hacer las flechas de navegación más pequeñas en móvil */
+      .nav-arrow {
+        width: 40px;
+        height: 40px;
+      }
+      .view-navigation {
+        padding: 0 15px;
+      }
     }
 
     @media (max-width: 480px) {
       .grid-item h4 { font-size: 1.3rem; }
       .item-list li { font-size: 1rem; }
-      .top-navbar .nav-links a { font-size: 0.8rem; padding: 5px 6px; }
-      .nav-arrow { width: 40px; height: 40px; }
-      .view-navigation { padding: 0 15px; }
-      .contact-modal .modal-content { padding: 30px 20px; } /* Menos padding en modal */
+      .top-navbar .nav-links a { font-size: 0.8rem; padding: 5px; }
+      .contact-modal .modal-content { padding: 30px 20px; }
     }
   </style>
 </head>
@@ -373,8 +418,8 @@
       <div class="social-links">
         <button id="contact-modal-open-btn" class="contact-btn-footer" data-key="contactBtn">Contáctame</button>
         <a href="mailto:davidfervc@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6ZM20 6L12 11L4 6H20ZM20 18H4V8L12 13L20 8V18Z"/></svg></a>
-        <a id="linkedin-icon-link" href="https://linkedin.com/in/davidvargas" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z"/></svg></a>
-        <a href="https://github.com/davidvargasc" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"/></svg></a>
+        <a id="linkedin-icon-link" href="https://linkedin.com/in/davidfervc" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z"/></svg></a>
+        <a href="https://github.com/davfervar" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"/></svg></a>
         <div id="linkedin-badge" class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="dark" data-type="VERTICAL" data-vanity="davidfervc" data-version="v1"></div>
       </div>
     </div>
@@ -385,7 +430,10 @@
         <button class="modal-close-btn" id="contact-modal-close-btn">&times;</button>
         <h3 data-key="modalTitle">Ponte en Contacto</h3>
         
-        <div id="form-status"></div>
+        <div id="form-status">
+            <p id="form-status-message"></p>
+            <button id="reset-form-btn"></button>
+        </div>
         
         <form class="contact-form" id="contact-form" action="https://formsubmit.co/davidfervc@gmail.com" method="POST">
             <div class="form-group">
@@ -412,8 +460,8 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
         const translations = {
-            es: { pageTitle: "David Vargas | IT Professional", navProjects: "Proyectos", navHome: "Inicio", navSkills: "Habilidades", navResume: "Resume", themeToggle: "Cambiar tema", pinNav: "Fijar Navegación", mainName: "David Vargas", mainSubtitle: "IT Professional", mainAbout: "Apasionado por la creación de soluciones tecnológicas eficientes y seguras. Mi objetivo es combinar el desarrollo de software y la administración de sistemas para construir y proteger la infraestructura digital del futuro.", eduTitle: "Educación", eduUni: "Universidad", eduUniName: "University of Central Florida", eduUniDegree: "Bachelor of Science - IT", eduUniGpa: "GPA: 3.48", eduUniGrad: "Graduación: Verano 2025", eduCollege: "College", eduCollegeName: "Valencia College", eduCollegeDegree: "Associate of Arts - General Studies", eduCollegeGpa: "GPA: 3.55", eduCollegeHonor: "President’s List", eduCerts: "Certificaciones", eduCert1: "✔ TestOut IT Fundamentals Pro", eduCert2: "✔ Cisco Packet Tracer IoT", eduCert3: "⌛ CompTIA Network+ (en progreso)", skillsTitle: "Mis Habilidades", skillsCat1: "Lenguajes y Desarrollo", skillsCat2: "Sistemas y Redes", skillsCat3: "Datos y Seguridad", projectsTitle: "Proyectos", proj1Title: "Student To-do List Web App", proj1L1: "HTML, CSS, JS, Firebase", proj1L2: "Sincronización en tiempo real", projLink1: "Ver en GitHub", proj2Title: "Network Configuration Lab", proj2L1: "Cisco Packet Tracer", proj2L2: "Diseño de redes segmentadas", projLink2: "Ver Documentación", proj3Title: "Three-Tier DB Web App", proj3L1: "Java, JSP, JDBC, MySQL", proj3L2: "Autenticación por roles", projLink3: "Ver Arquitectura", arrowSkills: "Ir a Habilidades", arrowProjects: "Ir a Proyectos", footerRights: "© 2024 David Vargas. Todos los derechos reservados.", contactBtn: "Contáctame", modalTitle: "Ponte en Contacto", modalName: "Nombre", modalEmail: "Email", modalMessage: "Mensaje", modalSend: "Enviar Mensaje", },
-            en: { pageTitle: "David Vargas | IT Professional", navProjects: "Projects", navHome: "Home", navSkills: "Skills", navResume: "Resume", themeToggle: "Toggle theme", pinNav: "Pin Navigation", mainName: "David Vargas", mainSubtitle: "IT Professional", mainAbout: "Passionate about creating efficient and secure technological solutions. My goal is to combine software development and systems administration to build and protect the digital infrastructure of the future.", eduTitle: "Education", eduUni: "University", eduUniName: "University of Central Florida", eduUniDegree: "Bachelor of Science - IT", eduUniGpa: "GPA: 3.48", eduUniGrad: "Graduation: Summer 2025", eduCollege: "College", eduCollegeName: "Valencia College", eduCollegeDegree: "Associate of Arts - General Studies", eduCollegeGpa: "GPA: 3.55", eduCollegeHonor: "President’s List", eduCerts: "Certifications", eduCert1: "✔ TestOut IT Fundamentals Pro", eduCert2: "✔ Cisco Packet Tracer IoT", eduCert3: "⌛ CompTIA Network+ (in progress)", skillsTitle: "My Skills", skillsCat1: "Languages & Development", skillsCat2: "Systems & Networking", skillsCat3: "Data & Security", projectsTitle: "Projects", proj1Title: "Student To-do List Web App", proj1L1: "HTML, CSS, JS, Firebase", proj1L2: "Real-time synchronization", projLink1: "View on GitHub", proj2Title: "Network Configuration Lab", proj2L1: "Cisco Packet Tracer", proj2L2: "Segmented network design", projLink2: "View Documentation", proj3Title: "Three-Tier DB Web App", proj3L1: "Java, JSP, JDBC, MySQL", proj3L2: "Role-based authentication", projLink3: "View Architecture", arrowSkills: "Go to Skills", arrowProjects: "Go to Projects", footerRights: "© 2024 David Vargas. All rights reserved.", contactBtn: "Contact Me", modalTitle: "Get in Touch", modalName: "Name", modalEmail: "Email", modalMessage: "Message", modalSend: "Send Message", }
+            es: { pageTitle: "David Vargas | IT Professional", navProjects: "Proyectos", navHome: "Inicio", navSkills: "Habilidades", navResume: "Resume", themeToggle: "Cambiar tema", pinNav: "Fijar Navegación", mainName: "David Vargas", mainSubtitle: "IT Professional", mainAbout: "Apasionado por la creación de soluciones tecnológicas eficientes y seguras. Mi objetivo es combinar el desarrollo de software y la administración de sistemas para construir y proteger la infraestructura digital del futuro.", eduTitle: "Educación", eduUni: "Universidad", eduUniName: "University of Central Florida", eduUniDegree: "Bachelor of Science - IT", eduUniGpa: "GPA: 3.48", eduUniGrad: "Graduación: Verano 2025", eduCollege: "College", eduCollegeName: "Valencia College", eduCollegeDegree: "Associate of Arts - General Studies", eduCollegeGpa: "GPA: 3.55", eduCollegeHonor: "President’s List", eduCerts: "Certificaciones", eduCert1: "✔ TestOut IT Fundamentals Pro", eduCert2: "✔ Cisco Packet Tracer IoT", eduCert3: "⌛ CompTIA Network+ (en progreso)", skillsTitle: "Mis Habilidades", skillsCat1: "Lenguajes y Desarrollo", skillsCat2: "Sistemas y Redes", skillsCat3: "Datos y Seguridad", projectsTitle: "Proyectos", proj1Title: "Student To-do List Web App", proj1L1: "HTML, CSS, JS, Firebase", proj1L2: "Sincronización en tiempo real", projLink1: "Ver en GitHub", proj2Title: "Network Configuration Lab", proj2L1: "Cisco Packet Tracer", proj2L2: "Diseño de redes segmentadas", projLink2: "Ver Documentación", proj3Title: "Three-Tier DB Web App", proj3L1: "Java, JSP, JDBC, MySQL", proj3L2: "Autenticación por roles", projLink3: "Ver Arquitectura", arrowSkills: "Ir a Habilidades", arrowProjects: "Ir a Proyectos", footerRights: "© 2024 David Vargas. Todos los derechos reservados.", contactBtn: "Contáctame", modalTitle: "Ponte en Contacto", modalName: "Nombre", modalEmail: "Email", modalMessage: "Mensaje", modalSend: "Enviar Mensaje", formSuccessMsg: "¡Gracias! Tu mensaje ha sido enviado.", formResetBtn: "Enviar Nuevo Mensaje" },
+            en: { pageTitle: "David Vargas | IT Professional", navProjects: "Projects", navHome: "Home", navSkills: "Skills", navResume: "Resume", themeToggle: "Toggle theme", pinNav: "Pin Navigation", mainName: "David Vargas", mainSubtitle: "IT Professional", mainAbout: "Passionate about creating efficient and secure technological solutions. My goal is to combine software development and systems administration to build and protect the digital infrastructure of the future.", eduTitle: "Education", eduUni: "University", eduUniName: "University of Central Florida", eduUniDegree: "Bachelor of Science - IT", eduUniGpa: "GPA: 3.48", eduUniGrad: "Graduation: Summer 2025", eduCollege: "College", eduCollegeName: "Valencia College", eduCollegeDegree: "Associate of Arts - General Studies", eduCollegeGpa: "GPA: 3.55", eduCollegeHonor: "President’s List", eduCerts: "Certifications", eduCert1: "✔ TestOut IT Fundamentals Pro", eduCert2: "✔ Cisco Packet Tracer IoT", eduCert3: "⌛ CompTIA Network+ (in progress)", skillsTitle: "My Skills", skillsCat1: "Languages & Development", skillsCat2: "Systems & Networking", skillsCat3: "Data & Security", projectsTitle: "Projects", proj1Title: "Student To-do List Web App", proj1L1: "HTML, CSS, JS, Firebase", proj1L2: "Real-time synchronization", projLink1: "View on GitHub", proj2Title: "Network Configuration Lab", proj2L1: "Cisco Packet Tracer", proj2L2: "Segmented network design", projLink2: "View Documentation", proj3Title: "Three-Tier DB Web App", proj3L1: "Java, JSP, JDBC, MySQL", proj3L2: "Role-based authentication", projLink3: "View Architecture", arrowSkills: "Go to Skills", arrowProjects: "Go to Projects", footerRights: "© 2024 David Vargas. All rights reserved.", contactBtn: "Contact Me", modalTitle: "Get in Touch", modalName: "Name", modalEmail: "Email", modalMessage: "Message", modalSend: "Send Message", formSuccessMsg: "Thank you! Your message has been sent.", formResetBtn: "Send New Message" }
         };
 
         const pageBody = document.getElementById('page-body');
@@ -448,6 +496,11 @@
             flashOverlay.classList.add('is-flashing');
             setTimeout(() => {
                 setLanguage(newLang);
+                const formStatus = document.getElementById('form-status');
+                if (formStatus.style.display === 'block' && formStatus.classList.contains('success')) {
+                    document.getElementById('form-status-message').textContent = translations[newLang].formSuccessMsg;
+                    document.getElementById('reset-form-btn').textContent = translations[newLang].formResetBtn;
+                }
                 setTimeout(() => {
                     flashOverlay.classList.remove('is-flashing');
                 }, 200);
@@ -480,75 +533,78 @@
         const contactModal = document.getElementById('contact-modal');
         const openModalBtn = document.getElementById('contact-modal-open-btn');
         const closeModalBtn = document.getElementById('contact-modal-close-btn');
-        openModalBtn.addEventListener('click', () => contactModal.classList.add('is-visible'));
+
+        const contactForm = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+        const formStatusMessage = document.getElementById('form-status-message');
+        const resetFormBtn = document.getElementById('reset-form-btn');
+        const formGroups = contactForm.querySelectorAll('.form-group');
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+
+        const resetForm = () => {
+            formStatus.style.display = 'none';
+            resetFormBtn.style.display = 'none';
+            formGroups.forEach(group => group.style.display = 'block');
+            submitButton.style.display = 'block';
+            submitButton.disabled = false;
+            submitButton.style.opacity = '1';
+            contactForm.reset();
+        };
+
+        openModalBtn.addEventListener('click', () => {
+            resetForm(); 
+            contactModal.classList.add('is-visible');
+        });
         closeModalBtn.addEventListener('click', () => contactModal.classList.remove('is-visible'));
         contactModal.addEventListener('click', (e) => {
             if (e.target === contactModal) contactModal.classList.remove('is-visible');
         });
-
-        // === CAMBIO: Lógica completa para el formulario de contacto con fetch ===
-        const contactForm = document.getElementById('contact-form');
-        const formStatus = document.getElementById('form-status');
+        resetFormBtn.addEventListener('click', resetForm);
 
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevenir la redirección por defecto
-            
+            e.preventDefault();
             const form = e.target;
             const data = new FormData(form);
             const action = form.action;
-
-            // Ocultar el botón y mostrar un estado de "enviando"
-            const submitButton = form.querySelector('button[type="submit"]');
             submitButton.style.opacity = '0.5';
             submitButton.disabled = true;
-
+            
             fetch(action, {
                 method: 'POST',
                 body: data,
-                headers: {
-                    'Accept': 'application/json'
-                }
+                headers: { 'Accept': 'application/json' }
             }).then(response => {
                 if (response.ok) {
-                    // Éxito en el envío
-                    formStatus.innerHTML = "¡Gracias! Tu mensaje ha sido enviado.";
+                    formStatusMessage.textContent = translations[currentLanguage].formSuccessMsg;
+                    resetFormBtn.textContent = translations[currentLanguage].formResetBtn;
                     formStatus.className = 'success';
                     formStatus.style.display = 'block';
-                    
-                    // Ocultar los campos del formulario
-                    form.querySelectorAll('.form-group').forEach(group => {
-                        group.style.display = 'none';
-                    });
+                    resetFormBtn.style.display = 'inline-block';
+                    formGroups.forEach(group => group.style.display = 'none');
                     submitButton.style.display = 'none';
                 } else {
-                    // Error en el envío, pero la conexión fue exitosa
                     response.json().then(data => {
-                        if (Object.hasOwn(data, 'errors')) {
-                            formStatus.innerHTML = data["errors"].map(error => error["message"]).join(", ");
-                        } else {
-                            formStatus.innerHTML = "Oops! Hubo un problema al enviar tu formulario.";
-                        }
+                        formStatusMessage.textContent = data.errors?.map(error => error.message).join(", ") || "Oops! Hubo un problema al enviar tu formulario.";
                         formStatus.className = 'error';
                         formStatus.style.display = 'block';
+                        resetFormBtn.style.display = 'none';
                         submitButton.style.opacity = '1';
                         submitButton.disabled = false;
                     })
                 }
             }).catch(error => {
-                // Error de red o similar
-                formStatus.innerHTML = "Oops! Hubo un problema de red al enviar tu formulario.";
+                formStatusMessage.textContent = "Oops! Hubo un problema de red.";
                 formStatus.className = 'error';
                 formStatus.style.display = 'block';
+                resetFormBtn.style.display = 'none';
                 submitButton.style.opacity = '1';
                 submitButton.disabled = false;
             });
         });
 
-        // Lógica del resto de la página...
         const mainTitle = document.getElementById('main-title');
         const educationTitle = document.getElementById('education-title');
         let currentView = 'main';
-
         const updateArrowVisibility = () => {
             const isEduView = pageBody.classList.contains('education-view');
             navArrowLeft.style.opacity = (currentView === 'skills' || isEduView) ? '0' : '1';
@@ -556,7 +612,6 @@
             navArrowRight.style.opacity = (currentView === 'projects' || isEduView) ? '0' : '1';
             navArrowRight.style.pointerEvents = (currentView === 'projects' || isEduView) ? 'none' : 'all';
         };
-        
         function animateList(viewSelector) {
             const items = document.querySelectorAll(`${viewSelector} .item-list li`);
             items.forEach((item, index) => {
@@ -564,7 +619,6 @@
                 item.style.animation = `fadeInUp 0.5s ease-out forwards ${index * 0.1}s`;
             });
         }
-        
         function changeView(newView) {
             const isLight = pageBody.classList.contains('light-mode');
             pageBody.className = isLight ? 'light-mode' : '';
@@ -577,11 +631,9 @@
             }
             updateArrowVisibility();
         }
-
         document.getElementById('home-link').addEventListener('click', (e) => { e.preventDefault(); changeView(''); });
         document.getElementById('skills-link').addEventListener('click', (e) => { e.preventDefault(); changeView('skills'); });
         document.getElementById('projects-link').addEventListener('click', (e) => { e.preventDefault(); changeView('projects'); });
-        
         navArrowLeft.addEventListener('click', () => {
             if (currentView === 'main') changeView('skills');
             else if (currentView === 'projects') changeView('');
@@ -590,7 +642,6 @@
             if (currentView === 'main') changeView('projects');
             else if (currentView === 'skills') changeView('');
         });
-
         mainTitle.addEventListener('click', () => {
             pageBody.classList.add('education-view');
             animateList('.hero-education-content');
@@ -600,7 +651,6 @@
             pageBody.classList.remove('education-view');
             updateArrowVisibility();
         });
-        
         const pinButton = document.getElementById('pin-button');
         let navMouseOutTimer;
         const showNav = () => { clearTimeout(navMouseOutTimer); topNavbar.classList.add('is-visible'); }
@@ -610,31 +660,24 @@
         triggerArea.addEventListener('mouseleave', () => { navMouseOutTimer = setTimeout(hideNav, 300); });
         topNavbar.addEventListener('mouseleave', () => { navMouseOutTimer = setTimeout(hideNav, 300); });
         pinButton.addEventListener('click', () => { topNavbar.classList.toggle('is-pinned'); pinButton.classList.toggle('is-pinned'); });
-        
         const subtitleWrapper = document.getElementById('subtitle-wrapper');
         const aboutMe = document.getElementById('about-me');
         subtitleWrapper.addEventListener('click', (e) => { e.stopPropagation(); aboutMe.classList.toggle('is-pinned'); });
-
         const linkedinIconLink = document.getElementById('linkedin-icon-link');
         let badgeHoverTimer;
-
         const showBadge = () => {
             clearTimeout(badgeHoverTimer);
             linkedinBadge.classList.add('is-visible');
         };
-
         const hideBadge = () => {
             badgeHoverTimer = setTimeout(() => {
                 linkedinBadge.classList.remove('is-visible');
             }, 200);
         };
-
         linkedinIconLink.addEventListener('mouseenter', showBadge);
         linkedinIconLink.addEventListener('mouseleave', hideBadge);
         linkedinBadge.addEventListener('mouseenter', showBadge);
         linkedinBadge.addEventListener('mouseleave', hideBadge);
-
-        // Inicialización al cargar la página
         const savedTheme = localStorage.getItem('theme') || 'dark';
         applyTheme(savedTheme);
         setLanguage(currentLanguage);
