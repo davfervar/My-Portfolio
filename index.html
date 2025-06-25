@@ -50,6 +50,7 @@
       color: var(--text-primary);
       background: var(--background-color);
       height: 100vh;
+      height: 100dvh; /* Solución para altura en móviles */
       overflow: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -127,7 +128,14 @@
     body.light-mode .icon-sun { display: block; }
 
     /* === HERO Y VISTAS === */
-    .hero { height: 100vh; width: 100vw; position: relative; overflow: hidden; }
+    /* ARREGLO FINAL: Usar 100dvh para que la altura en móvil sea la del área visible */
+    .hero {
+        height: 100vh; /* Fallback para navegadores antiguos */
+        height: 100dvh; 
+        width: 100vw; 
+        position: relative; 
+        overflow: hidden; 
+    }
     
     .view { 
       position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
@@ -297,6 +305,7 @@
     @media (max-width: 768px) {
       .footer-content { flex-direction: column; gap: 25px; justify-content: center; align-items: center; }
 
+      /* ARREGLO FINAL: Aumentar espaciado de la barra de navegación */
       .top-navbar {
         padding: 10px 15px;
         justify-content: space-between;
@@ -305,27 +314,25 @@
       .nav-links {
         flex-grow: 1;
         justify-content: center;
-        gap: 0;
+        gap: 10px; /* Aumentado para más espacio */
         margin: 0 5px;
       }
-      .top-navbar .nav-links a { padding: 6px; font-size: 0.85rem; white-space: nowrap; }
+      .top-navbar .nav-links a { padding: 6px 4px; font-size: 0.85rem; white-space: nowrap; }
       .navbar-actions { gap: 8px; }
       
       #linkedin-badge { bottom: calc(100% + 15px); left: 50%; transform: translateX(-50%) translateY(10px); }
 
-      /* --- ARREGLO FINAL PARA VISTAS MÓVIL --- */
+      /* --- Solución definitiva para layout en móvil --- */
 
-      /* 1. Para la PÁGINA PRINCIPAL, dejar espacio para el footer */
       .hero-main-content.view {
         padding-bottom: 100px;
       }
 
-      /* 2. Para las OTRAS PÁGINAS (Skills, Proyectos, etc.) */
       .hero-skills-content.view,
       .hero-projects-content.view,
       .hero-education-content.view {
-        padding-top: 70px; /* Espacio para el header */
-        padding-bottom: 40px; /* Espacio mínimo abajo */
+        padding-top: 70px;
+        padding-bottom: 60px; /* Aumentado para dar más "aire" al final del scroll */
         justify-content: flex-start;
       }
       .hero-skills-content .content-grid,
@@ -334,7 +341,7 @@
         flex-direction: column;
         margin-top: 20px;
         gap: 20px;
-        overflow-y: auto; /* Scroll interno */
+        overflow-y: auto;
         flex-grow: 1;
         padding: 15px;
         scrollbar-width: thin;
@@ -352,13 +359,12 @@
         border-radius: 3px;
       }
       
-      /* 3. Reducción final de tamaño de flechas */
       .nav-arrow {
         width: 16px;
         height: 16px;
       }
       .nav-arrow svg {
-        width: 12px; /* Reducir también el icono SVG */
+        width: 12px;
         height: 12px;
       }
       .view-navigation {
@@ -369,7 +375,7 @@
     @media (max-width: 480px) {
       .grid-item h4 { font-size: 1.3rem; }
       .item-list li { font-size: 1rem; }
-      .top-navbar .nav-links a { font-size: 0.8rem; padding: 5px; }
+      .top-navbar .nav-links a { font-size: 0.8rem; padding: 5px; gap: 8px; }
       .contact-modal .modal-content { padding: 30px 20px; }
     }
   </style>
