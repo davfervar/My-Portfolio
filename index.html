@@ -32,7 +32,6 @@
 
     body.light-mode {
       /* Modo Día */
-      /* CAMBIO: Fondo menos brillante para confort visual */
       --background-color: #E9ECEF;
       --navbar-bg-color: rgba(248, 249, 250, 0.7);
       --card-bg-color: rgba(255, 255, 255, 0.8);
@@ -93,53 +92,30 @@
         z-index: 1002;
     }
     
-    .navbar-left, .navbar-right {
-        flex: 1;
-    }
-    .navbar-right {
-        display: flex;
-        justify-content: flex-end;
-    }
-    .nav-links {
-        flex: 2;
-        display: flex; 
-        justify-content: center;
-        align-items: center; 
-        gap: 20px; 
-    }
+    .navbar-left, .navbar-right { flex: 1; }
+    .navbar-right { display: flex; justify-content: flex-end; }
+    .nav-links { flex: 2; display: flex; justify-content: center; align-items: center; gap: 20px; }
     
-    .top-navbar .nav-links a { color: var(--text-primary); text-decoration: none; padding: 8px 15px; border-radius: 8px; transition: background 0.3s; }
+    .top-navbar .nav-links a { color: var(--text-primary); text-decoration: none; padding: 8px 15px; border-radius: 8px; transition: background 0.3s; font-size: 1rem; }
     
     .resume-button-nav { border: 1.5px solid var(--secondary-color-orange); color: var(--secondary-color-orange) !important; }
     .resume-button-nav:hover { background: var(--secondary-color-orange); color: var(--background-color) !important; }
 
-    .navbar-actions {
-        display: flex; align-items: center; gap: 15px;
-    }
+    .navbar-actions { display: flex; align-items: center; gap: 15px; }
     
     #lang-toggle {
-        background: transparent;
-        border: 1px solid var(--border-color);
-        color: var(--text-secondary);
-        padding: 6px 12px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-family: 'Poppins', sans-serif;
-        font-weight: 600;
-        transition: all 0.3s ease;
+        background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary);
+        padding: 6px 12px; border-radius: 8px; cursor: pointer;
+        font-family: 'Poppins', sans-serif; font-weight: 600; transition: all 0.3s ease;
     }
-    #lang-toggle:hover {
-        border-color: var(--text-primary);
-        color: var(--text-primary);
-    }
+    #lang-toggle:hover { border-color: var(--text-primary); color: var(--text-primary); }
     
     .theme-toggle, .pin-button {
         background: transparent; border: none; cursor: pointer; padding: 5px;
         display: flex; align-items: center; justify-content: center;
     }
     .theme-toggle svg, .pin-button svg {
-        width: 22px; height: 22px;
-        fill: var(--text-secondary);
+        width: 22px; height: 22px; fill: var(--text-secondary);
         transition: fill 0.3s, transform 0.3s;
     }
     .theme-toggle:hover svg, .pin-button:hover svg { fill: var(--text-primary); }
@@ -151,45 +127,52 @@
     body.light-mode .icon-sun { display: block; }
 
     /* === HERO Y VISTAS === */
-    .hero { 
-        height: 100vh; width: 100vw; position: relative; overflow: hidden;
-    }
+    .hero { height: 100vh; width: 100vw; position: relative; overflow: hidden; }
     
-    .view { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 80px 40px; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s; }
+    .view { 
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+      display: flex; flex-direction: column; justify-content: center; align-items: center; 
+      text-align: center; padding: 80px 40px; 
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s; 
+    }
     .hero-main-content { transform: translateX(0); }
-    .hero-skills-content { transform: translateX(-100%); opacity: 0; pointer-events: none;}
-    .hero-projects-content { transform: translateX(100%); opacity: 0; pointer-events: none;}
-    .hero-education-content { transform: translateY(100%); opacity: 0; pointer-events: none; }
+    .hero-skills-content, .hero-projects-content, .hero-education-content { opacity: 0; pointer-events: none; }
+    .hero-skills-content { transform: translateX(-100%); }
+    .hero-projects-content { transform: translateX(100%); }
+    .hero-education-content { transform: translateY(100%); }
+    
     body.skills-view .hero-main-content { transform: translateX(100%); opacity: 0; pointer-events: none; }
     body.skills-view .hero-skills-content { transform: translateX(0); opacity: 1; pointer-events: all; }
     body.projects-view .hero-main-content { transform: translateX(-100%); opacity: 0; pointer-events: none; }
     body.projects-view .hero-projects-content { transform: translateX(0); opacity: 1; pointer-events: all; }
     body.education-view .hero-main-content { opacity: 0; pointer-events: none; }
     body.education-view .hero-education-content { transform: translateY(0); opacity: 1; pointer-events: all; }
-    h2.view-title { font-size: 4.5rem; font-weight: 700; margin-bottom: 15px; background-size: 200% 200%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: textGradientAnimation 8s ease infinite; }
     
-    #main-title { 
-        background-image: linear-gradient(270deg, var(--secondary-color-orange), #e364c1, #79d2d9, var(--secondary-color-blue)); 
-        cursor: pointer; 
-    }
-    
-    #education-title { 
-        background-image: linear-gradient(270deg, var(--primary-color), var(--secondary-color-orange)); 
-        cursor: pointer; 
+    /* MEJORA: Tipografía Fluida para el título principal */
+    h2.view-title { 
+      font-size: clamp(2.5rem, 10vw, 4.5rem); /* Se adapta entre 2.5rem y 4.5rem */
+      font-weight: 700; margin-bottom: 15px; 
+      background-size: 200% 200%; -webkit-background-clip: text; 
+      background-clip: text; -webkit-text-fill-color: transparent; 
+      animation: textGradientAnimation 8s ease infinite; 
     }
     
-    #skills-title, #projects-title {
-        background-image: linear-gradient(270deg, var(--primary-color), #fff);
-    }
-    body.light-mode #skills-title,
-    body.light-mode #projects-title {
-        background-image: linear-gradient(270deg, var(--primary-color), var(--secondary-color-blue));
-    }
+    #main-title { background-image: linear-gradient(270deg, var(--secondary-color-orange), #e364c1, #79d2d9, var(--secondary-color-blue)); cursor: pointer; }
+    #education-title { background-image: linear-gradient(270deg, var(--primary-color), var(--secondary-color-orange)); cursor: pointer; }
+    #skills-title, #projects-title { background-image: linear-gradient(270deg, var(--primary-color), #fff); }
+    body.light-mode #skills-title, body.light-mode #projects-title { background-image: linear-gradient(270deg, var(--primary-color), var(--secondary-color-blue)); }
 
     @keyframes textGradientAnimation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    
     .subtitle-wrapper { position: relative; }
-    .subtitle-wrapper .subtitle { font-size: 1.5rem; font-weight: 400; cursor: pointer; padding: 10px 20px; }
-    .subtitle-wrapper .about-me { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(-20px); width: 600px; max-width: 90vw; font-size: 1.1rem; font-weight: 300; color: var(--text-secondary); line-height: 1.6; text-align: center; transition: opacity 0.4s ease-out, transform 0.4s ease-out, visibility 0.4s; opacity: 0; visibility: hidden; pointer-events: none; }
+    .subtitle-wrapper .subtitle { font-size: clamp(1.2rem, 4vw, 1.5rem); font-weight: 400; cursor: pointer; padding: 10px 20px; }
+    .subtitle-wrapper .about-me { 
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(-20px); 
+      width: 600px; max-width: 90vw; font-size: clamp(1rem, 2.5vw, 1.1rem); font-weight: 300; 
+      color: var(--text-secondary); line-height: 1.6; text-align: center; 
+      transition: opacity 0.4s ease-out, transform 0.4s ease-out, visibility 0.4s; 
+      opacity: 0; visibility: hidden; pointer-events: none; 
+    }
     .subtitle-wrapper:hover .about-me:not(.is-pinned), .subtitle-wrapper .about-me.is-pinned { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(5px); }
     
     .content-grid { display: flex; justify-content: space-around; width: 100%; max-width: 1200px; margin-top: 50px; gap: 30px; }
@@ -205,153 +188,145 @@
     .nav-arrow svg { stroke: var(--text-primary); }
 
     /* === FOOTER === */
-    .site-footer {
-      position: absolute; bottom: 0; width: 100%; padding: 15px 40px;
-    }
-    .footer-content {
-      max-width: 1100px; margin: auto;
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 20px;
-    }
+    .site-footer { position: absolute; bottom: 0; width: 100%; padding: 15px 40px; }
+    .footer-content { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
     .footer-content p { color: var(--text-secondary); font-size: 0.9rem; }
-    .social-links { display: flex; gap: 20px; align-items: center;}
+    .social-links { display: flex; gap: 20px; align-items: center; position: relative;}
     .social-links a { color: var(--text-secondary); transition: color 0.3s ease; }
     .social-links a:hover { color: var(--primary-color); }
     .social-links svg { width: 24px; height: 24px; fill: currentColor; }
 
+    #linkedin-badge {
+      position: absolute; bottom: 150%; left: 50%;
+      transform: translateX(-50%) translateY(10px); z-index: 1100;
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+    }
+    #linkedin-badge.is-visible { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+    
     .contact-btn-footer {
-        padding: 8px 20px;
-        background-color: var(--secondary-color-blue);
-        color: #fff;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-family: 'Poppins', sans-serif;
-        font-weight: 500;
+        padding: 8px 20px; background-color: var(--secondary-color-blue); color: #fff;
+        border: none; border-radius: 8px; cursor: pointer;
+        font-family: 'Poppins', sans-serif; font-weight: 500;
         transition: background-color 0.3s, transform 0.3s;
     }
-    .contact-btn-footer:hover {
-        background-color: #3a86ff;
-        transform: translateY(-2px);
-    }
+    .contact-btn-footer:hover { background-color: #3a86ff; transform: translateY(-2px); }
     
     /* === MODAL DE CONTACTO === */
     .modal-overlay {
-        position: fixed; top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        display: grid;
-        place-items: center;
-        z-index: 2000;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.3s ease;
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.5); display: grid; place-items: center;
+        z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
     }
-    .modal-overlay.is-visible {
-        opacity: 1;
-        pointer-events: all;
-    }
+    .modal-overlay.is-visible { opacity: 1; pointer-events: all; }
     .modal-content {
-        background: var(--navbar-bg-color);
-        backdrop-filter: blur(10px);
-        border: 1px solid var(--border-color);
-        padding: 40px;
-        border-radius: 12px;
-        width: 90%;
-        max-width: 500px;
-        position: relative;
-        transform: scale(0.9);
-        transition: transform 0.3s ease;
+        background: var(--navbar-bg-color); backdrop-filter: blur(10px);
+        border: 1px solid var(--border-color); padding: 40px; border-radius: 12px;
+        width: 90%; max-width: 500px; position: relative;
+        transform: scale(0.9); transition: transform 0.3s ease;
     }
-    .modal-overlay.is-visible .modal-content {
-        transform: scale(1);
-    }
+    .modal-overlay.is-visible .modal-content { transform: scale(1); }
     .modal-close-btn {
-        position: absolute; top: 10px; right: 15px;
-        background: transparent; border: none;
-        font-size: 2rem; color: var(--text-secondary);
-        cursor: pointer;
+        position: absolute; top: 10px; right: 15px; background: transparent; border: none;
+        font-size: 2rem; color: var(--text-secondary); cursor: pointer;
     }
-    .modal-content h3 {
-        color: var(--text-primary);
-        margin-bottom: 20px;
-        text-align: center;
-    }
-    .contact-form .form-group {
-        margin-bottom: 15px;
-    }
-    .contact-form label {
-        display: block;
-        color: var(--text-secondary);
-        margin-bottom: 5px;
-    }
+    .modal-content h3 { color: var(--text-primary); margin-bottom: 20px; text-align: center; }
+    .contact-form .form-group { margin-bottom: 15px; }
+    .contact-form label { display: block; color: var(--text-secondary); margin-bottom: 5px; }
     .contact-form input, .contact-form textarea {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        background: var(--input-bg-color);
-        color: var(--text-primary);
-        font-family: 'Poppins', sans-serif;
-        transition: background-color 0.3s, border-color 0.3s;
+        width: 100%; padding: 10px; border: 1px solid var(--border-color);
+        border-radius: 8px; background: var(--input-bg-color); color: var(--text-primary);
+        font-family: 'Poppins', sans-serif; transition: background-color 0.3s, border-color 0.3s;
     }
-    .contact-form input:focus, .contact-form textarea:focus {
-        outline: none;
-        border-color: var(--secondary-color-blue);
-    }
-    .contact-form textarea {
-        resize: vertical;
-        min-height: 120px;
-    }
+    .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--secondary-color-blue); }
+    .contact-form textarea { resize: vertical; min-height: 120px; }
     .contact-form button {
-        width: 100%;
-        padding: 12px;
-        background-color: var(--secondary-color-blue);
-        color: #fff;
-        border: none;
-        border-radius: 8px;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.3s;
+        width: 100%; padding: 12px; background-color: var(--secondary-color-blue); color: #fff;
+        border: none; border-radius: 8px; font-size: 1rem; font-weight: 600;
+        cursor: pointer; transition: background-color 0.3s;
     }
-    .contact-form button:hover {
-        background-color: #3a86ff;
-    }
+    .contact-form button:hover { background-color: #3a86ff; }
 
     /* === ANIMACIÓN DE DESTELLO (LENTA) === */
     #flash-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: var(--text-primary);
-        z-index: 9999;
-        opacity: 0;
-        pointer-events: none;
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        background-color: var(--text-primary); z-index: 9999;
+        opacity: 0; pointer-events: none;
         transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    #flash-overlay.is-flashing {
-        opacity: 1;
+    #flash-overlay.is-flashing { opacity: 1; }
+
+    /* === MEDIA QUERIES PARA RESPONSIVE DESIGN === */
+
+    /* MEJORA: Para tablets y móviles grandes (hasta 768px) */
+    @media (max-width: 768px) {
+      .view {
+        padding: 60px 20px; /* Reducir padding para más espacio */
+      }
+      .content-grid { 
+        flex-direction: column; 
+        margin-top: 30px;
+        gap: 20px;
+      }
+      .footer-content { 
+        flex-direction: column; 
+        gap: 25px; /* Aumentar espacio en el footer */
+        justify-content: center;
+        align-items: center; /* Centrar todo el contenido */
+      }
+      .top-navbar {
+        justify-content: center;
+        padding: 10px 15px; /* Reducir padding de la barra */
+      }
+      .navbar-left, .navbar-right {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .navbar-left { left: 15px; }
+      .navbar-right { right: 15px; }
+
+      /* Ajustar enlaces de navegación para que quepan */
+      .nav-links {
+        gap: 5px; /* Reducir el espacio entre enlaces */
+      }
+      .top-navbar .nav-links a {
+        padding: 6px 8px; /* Reducir padding de los enlaces */
+        font-size: 0.9rem; /* Reducir tamaño de fuente */
+      }
+
+      /* Ajustar posición del badge en móvil */
+      #linkedin-badge {
+        bottom: calc(100% + 15px); /* Colocarlo justo encima de los iconos */
+        left: 50%;
+        transform: translateX(-50%) translateY(10px);
+      }
     }
 
-    /* === MEDIA QUERIES === */
-    @media (max-width: 768px) {
-        h2.view-title { font-size: 3rem; }
-        .content-grid { flex-direction: column; }
-        .footer-content { flex-direction: column; gap: 15px; }
-        .top-navbar {
-            justify-content: center;
-        }
-        .navbar-left, .navbar-right {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        .navbar-left { left: 15px; }
-        .navbar-right { right: 15px; }
+    /* MEJORA: Ajustes finos para móviles pequeños (hasta 480px) */
+    @media (max-width: 480px) {
+      .grid-item h4 {
+        font-size: 1.3rem;
+      }
+      .item-list li {
+        font-size: 1rem;
+      }
+      .top-navbar .nav-links a {
+        font-size: 0.8rem; /* Aún más pequeño para evitar saltos de línea */
+        padding: 5px 6px;
+      }
+       .nav-arrow {
+        width: 40px;
+        height: 40px;
+      }
+      .view-navigation {
+        padding: 0 15px;
+      }
+      .contact-form {
+        padding: 30px 20px;
+      }
     }
+
   </style>
 </head>
 <body id="page-body">
@@ -425,12 +400,12 @@
   <footer class="site-footer" id="contacto">
     <div class="footer-content">
       <p data-key="footerRights">&copy; 2024 David Vargas. Todos los derechos reservados.</p>
-      <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="davidfervc" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://www.linkedin.com/in/davidfervc?trk=profile-badge">David Vargas</a></div>
       <div class="social-links">
         <button id="contact-modal-open-btn" class="contact-btn-footer" data-key="contactBtn">Contáctame</button>
         <a href="mailto:davidfervc@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6ZM20 6L12 11L4 6H20ZM20 18H4V8L12 13L20 8V18Z"/></svg></a>
-        <a href="https://linkedin.com/in/davidvargas" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z"/></svg></a>
+        <a id="linkedin-icon-link" href="https://linkedin.com/in/davidvargas" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z"/></svg></a>
         <a href="https://github.com/davidvargasc" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"/></svg></a>
+        <div id="linkedin-badge" class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="davidfervc" data-version="v1"></div>
       </div>
     </div>
   </footer>
@@ -458,7 +433,7 @@
         </form>
     </div>
   </div>
- 
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
         const translations = {
@@ -508,14 +483,29 @@
         });
 
         const themeToggleButton = document.getElementById('theme-toggle');
-        if (localStorage.getItem('theme') === 'light') {
-            pageBody.classList.add('light-mode');
-        }
+        const linkedinBadge = document.getElementById('linkedin-badge');
+
+        const applyTheme = (theme) => {
+            if (theme === 'light') {
+                pageBody.classList.add('light-mode');
+                linkedinBadge.dataset.theme = 'light';
+            } else {
+                pageBody.classList.remove('light-mode');
+                linkedinBadge.dataset.theme = 'dark';
+            }
+            localStorage.setItem('theme', theme);
+
+            if (typeof IN !== 'undefined' && IN.parse) {
+                linkedinBadge.innerHTML = '';
+                IN.parse(linkedinBadge.parentElement);
+            }
+        };
+
         themeToggleButton.addEventListener('click', () => {
-            pageBody.classList.toggle('light-mode');
-            localStorage.setItem('theme', pageBody.classList.contains('light-mode') ? 'light' : 'dark');
+            const newTheme = pageBody.classList.contains('light-mode') ? 'dark' : 'light';
+            applyTheme(newTheme);
         });
-      
+
         const contactModal = document.getElementById('contact-modal');
         const openModalBtn = document.getElementById('contact-modal-open-btn');
         const closeModalBtn = document.getElementById('contact-modal-close-btn');
@@ -536,7 +526,7 @@
             navArrowRight.style.opacity = (currentView === 'projects' || isEduView) ? '0' : '1';
             navArrowRight.style.pointerEvents = (currentView === 'projects' || isEduView) ? 'none' : 'all';
         };
-      
+        
         function animateList(viewSelector) {
             const items = document.querySelectorAll(`${viewSelector} .item-list li`);
             items.forEach((item, index) => {
@@ -544,7 +534,7 @@
                 item.style.animation = `fadeInUp 0.5s ease-out forwards ${index * 0.1}s`;
             });
         }
-      
+        
         function changeView(newView) {
             const isLight = pageBody.classList.contains('light-mode');
             pageBody.className = isLight ? 'light-mode' : '';
@@ -561,7 +551,7 @@
         document.getElementById('home-link').addEventListener('click', (e) => { e.preventDefault(); changeView(''); });
         document.getElementById('skills-link').addEventListener('click', (e) => { e.preventDefault(); changeView('skills'); });
         document.getElementById('projects-link').addEventListener('click', (e) => { e.preventDefault(); changeView('projects'); });
-      
+        
         navArrowLeft.addEventListener('click', () => {
             if (currentView === 'main') changeView('skills');
             else if (currentView === 'projects') changeView('');
@@ -580,7 +570,7 @@
             pageBody.classList.remove('education-view');
             updateArrowVisibility();
         });
-      
+        
         const pinButton = document.getElementById('pin-button');
         let navMouseOutTimer;
         const showNav = () => { clearTimeout(navMouseOutTimer); topNavbar.classList.add('is-visible'); }
@@ -590,11 +580,33 @@
         triggerArea.addEventListener('mouseleave', () => { navMouseOutTimer = setTimeout(hideNav, 300); });
         topNavbar.addEventListener('mouseleave', () => { navMouseOutTimer = setTimeout(hideNav, 300); });
         pinButton.addEventListener('click', () => { topNavbar.classList.toggle('is-pinned'); pinButton.classList.toggle('is-pinned'); });
-      
+        
         const subtitleWrapper = document.getElementById('subtitle-wrapper');
         const aboutMe = document.getElementById('about-me');
         subtitleWrapper.addEventListener('click', (e) => { e.stopPropagation(); aboutMe.classList.toggle('is-pinned'); });
 
+        const linkedinIconLink = document.getElementById('linkedin-icon-link');
+        let badgeHoverTimer;
+
+        const showBadge = () => {
+            clearTimeout(badgeHoverTimer);
+            linkedinBadge.classList.add('is-visible');
+        };
+
+        const hideBadge = () => {
+            badgeHoverTimer = setTimeout(() => {
+                linkedinBadge.classList.remove('is-visible');
+            }, 200);
+        };
+
+        linkedinIconLink.addEventListener('mouseenter', showBadge);
+        linkedinIconLink.addEventListener('mouseleave', hideBadge);
+        linkedinBadge.addEventListener('mouseenter', showBadge);
+        linkedinBadge.addEventListener('mouseleave', hideBadge);
+
+        // Inicialización al cargar la página
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        applyTheme(savedTheme);
         setLanguage(currentLanguage);
         updateArrowVisibility();
     });
