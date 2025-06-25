@@ -1,428 +1,601 @@
-@ -0,0 +1,427 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es" id="html-lang">
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-key="pageTitle">David Vargas | IT Professional</title>
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='white'/><text x='50%' y='50%' dominant-baseline='central' text-anchor='middle' font-size='65' font-family='system-ui, sans-serif' font-weight='500' fill='%234d94ff'>D</text></svg>">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <title>Cruise Everywhere!</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+  <style>
+    /* === VARIABLES CSS === */
+    :root {
+      --primary-color: #79d2d9; 
+      --secondary-color-orange: #FFA500;
+      --secondary-color-blue: #4d94ff;
+      
+      /* Modo Noche (por defecto) */
+      --background-color: #0f0c29;
+      --navbar-bg-color: rgba(15, 12, 41, 0.6);
+      --card-bg-color: rgba(36, 36, 62, 0.6);
+      --input-bg-color: rgba(255, 255, 255, 0.05);
+      --text-primary: #F0F0F0;
+      --text-secondary: #BDBDBD;
+      --border-color: rgba(255, 255, 255, 0.1);
+    }
 
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    body.light-mode {
+      /* Modo Día */
+      /* CAMBIO: Fondo menos brillante para confort visual */
+      --background-color: #E9ECEF;
+      --navbar-bg-color: rgba(248, 249, 250, 0.7);
+      --card-bg-color: rgba(255, 255, 255, 0.8);
+      --input-bg-color: rgba(0, 0, 0, 0.05);
+      --text-primary: #1c1e21;
+      --text-secondary: #555;
+      --border-color: rgba(0, 0, 0, 0.1);
+    }
 
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CRaleway:300,300i,400,400i,500,500i,600,600i,700,700i%7CPoppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    /* === RESETEO Y ESTILOS GLOBALES === */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    body {
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text-primary);
+      background: var(--background-color);
+      height: 100vh;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+    
+    body:not(.light-mode) {
+      background: radial-gradient(ellipse at top left, #0f0c29 0%, #302b63 50%, #24243e 100%);
+      background-size: 300% 300%;
+      animation: gradientAnimation 40s ease infinite;
+    }
 
-  <link href="assets/css/style.css" rel="stylesheet">
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+    
+    /* === NAVBAR === */
+    .navbar-trigger-area {
+        position: fixed; top: 0; left: 0; width: 100%; height: 40px; z-index: 1001;
+    }
 
+    .top-navbar {
+      position: fixed; top: 0; left: 0; width: 100%;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--navbar-bg-color);
+      backdrop-filter: blur(15px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-color);
+      transform: translateY(-100%);
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s ease, border-color 0.4s ease;
+    }
+
+    .top-navbar.is-visible { 
+        transform: translateY(0);
+        z-index: 1002;
+    }
+    
+    .navbar-left, .navbar-right {
+        flex: 1;
+    }
+    .navbar-right {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .nav-links {
+        flex: 2;
+        display: flex; 
+        justify-content: center;
+        align-items: center; 
+        gap: 20px; 
+    }
+    
+    .top-navbar .nav-links a { color: var(--text-primary); text-decoration: none; padding: 8px 15px; border-radius: 8px; transition: background 0.3s; }
+    
+    .resume-button-nav { border: 1.5px solid var(--secondary-color-orange); color: var(--secondary-color-orange) !important; }
+    .resume-button-nav:hover { background: var(--secondary-color-orange); color: var(--background-color) !important; }
+
+    .navbar-actions {
+        display: flex; align-items: center; gap: 15px;
+    }
+    
+    #lang-toggle {
+        background: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text-secondary);
+        padding: 6px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    #lang-toggle:hover {
+        border-color: var(--text-primary);
+        color: var(--text-primary);
+    }
+    
+    .theme-toggle, .pin-button {
+        background: transparent; border: none; cursor: pointer; padding: 5px;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .theme-toggle svg, .pin-button svg {
+        width: 22px; height: 22px;
+        fill: var(--text-secondary);
+        transition: fill 0.3s, transform 0.3s;
+    }
+    .theme-toggle:hover svg, .pin-button:hover svg { fill: var(--text-primary); }
+    .pin-button.is-pinned svg { fill: var(--primary-color); transform: rotate(45deg); }
+
+    .icon-moon { display: block; }
+    .icon-sun { display: none; }
+    body.light-mode .icon-moon { display: none; }
+    body.light-mode .icon-sun { display: block; }
+
+    /* === HERO Y VISTAS === */
+    .hero { 
+        height: 100vh; width: 100vw; position: relative; overflow: hidden;
+    }
+    
+    .view { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 80px 40px; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s; }
+    .hero-main-content { transform: translateX(0); }
+    .hero-skills-content { transform: translateX(-100%); opacity: 0; pointer-events: none;}
+    .hero-projects-content { transform: translateX(100%); opacity: 0; pointer-events: none;}
+    .hero-education-content { transform: translateY(100%); opacity: 0; pointer-events: none; }
+    body.skills-view .hero-main-content { transform: translateX(100%); opacity: 0; pointer-events: none; }
+    body.skills-view .hero-skills-content { transform: translateX(0); opacity: 1; pointer-events: all; }
+    body.projects-view .hero-main-content { transform: translateX(-100%); opacity: 0; pointer-events: none; }
+    body.projects-view .hero-projects-content { transform: translateX(0); opacity: 1; pointer-events: all; }
+    body.education-view .hero-main-content { opacity: 0; pointer-events: none; }
+    body.education-view .hero-education-content { transform: translateY(0); opacity: 1; pointer-events: all; }
+    h2.view-title { font-size: 4.5rem; font-weight: 700; margin-bottom: 15px; background-size: 200% 200%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: textGradientAnimation 8s ease infinite; }
+    
+    #main-title { 
+        background-image: linear-gradient(270deg, var(--secondary-color-orange), #e364c1, #79d2d9, var(--secondary-color-blue)); 
+        cursor: pointer; 
+    }
+    
+    #education-title { 
+        background-image: linear-gradient(270deg, var(--primary-color), var(--secondary-color-orange)); 
+        cursor: pointer; 
+    }
+    
+    #skills-title, #projects-title {
+        background-image: linear-gradient(270deg, var(--primary-color), #fff);
+    }
+    body.light-mode #skills-title,
+    body.light-mode #projects-title {
+        background-image: linear-gradient(270deg, var(--primary-color), var(--secondary-color-blue));
+    }
+
+    @keyframes textGradientAnimation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    .subtitle-wrapper { position: relative; }
+    .subtitle-wrapper .subtitle { font-size: 1.5rem; font-weight: 400; cursor: pointer; padding: 10px 20px; }
+    .subtitle-wrapper .about-me { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(-20px); width: 600px; max-width: 90vw; font-size: 1.1rem; font-weight: 300; color: var(--text-secondary); line-height: 1.6; text-align: center; transition: opacity 0.4s ease-out, transform 0.4s ease-out, visibility 0.4s; opacity: 0; visibility: hidden; pointer-events: none; }
+    .subtitle-wrapper:hover .about-me:not(.is-pinned), .subtitle-wrapper .about-me.is-pinned { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(5px); }
+    
+    .content-grid { display: flex; justify-content: space-around; width: 100%; max-width: 1200px; margin-top: 50px; gap: 30px; }
+    .grid-item { position: relative; padding: 20px; flex: 1; text-align: center; }
+    .grid-item h4 { font-size: 1.5rem; color: var(--primary-color); margin-bottom: 15px; }
+    .item-list li { list-style: none; margin-bottom: 10px; font-size: 1.1rem; color: var(--text-secondary); opacity: 0; animation: fadeInUp 0.5s ease-out forwards; }
+    .item-list a { color: var(--secondary-color-orange); text-decoration: none; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .view-navigation { position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; padding: 0 30px; transform: translateY(-50%); pointer-events: none; }
+    .nav-arrow { background: var(--card-bg-color); border: 1px solid var(--border-color); width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: transform 0.3s, background 0.3s, opacity 0.4s ease; pointer-events: all; }
+    .nav-arrow:hover { transform: scale(1.1); background: var(--navbar-bg-color); }
+    .nav-arrow svg { stroke: var(--text-primary); }
+
+    /* === FOOTER === */
+    .site-footer {
+      position: absolute; bottom: 0; width: 100%; padding: 15px 40px;
+    }
+    .footer-content {
+      max-width: 1100px; margin: auto;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 20px;
+    }
+    .footer-content p { color: var(--text-secondary); font-size: 0.9rem; }
+    .social-links { display: flex; gap: 20px; align-items: center;}
+    .social-links a { color: var(--text-secondary); transition: color 0.3s ease; }
+    .social-links a:hover { color: var(--primary-color); }
+    .social-links svg { width: 24px; height: 24px; fill: currentColor; }
+
+    .contact-btn-footer {
+        padding: 8px 20px;
+        background-color: var(--secondary-color-blue);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 500;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+    .contact-btn-footer:hover {
+        background-color: #3a86ff;
+        transform: translateY(-2px);
+    }
+    
+    /* === MODAL DE CONTACTO === */
+    .modal-overlay {
+        position: fixed; top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: grid;
+        place-items: center;
+        z-index: 2000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+    .modal-overlay.is-visible {
+        opacity: 1;
+        pointer-events: all;
+    }
+    .modal-content {
+        background: var(--navbar-bg-color);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--border-color);
+        padding: 40px;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 500px;
+        position: relative;
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+    }
+    .modal-overlay.is-visible .modal-content {
+        transform: scale(1);
+    }
+    .modal-close-btn {
+        position: absolute; top: 10px; right: 15px;
+        background: transparent; border: none;
+        font-size: 2rem; color: var(--text-secondary);
+        cursor: pointer;
+    }
+    .modal-content h3 {
+        color: var(--text-primary);
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .contact-form .form-group {
+        margin-bottom: 15px;
+    }
+    .contact-form label {
+        display: block;
+        color: var(--text-secondary);
+        margin-bottom: 5px;
+    }
+    .contact-form input, .contact-form textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        background: var(--input-bg-color);
+        color: var(--text-primary);
+        font-family: 'Poppins', sans-serif;
+        transition: background-color 0.3s, border-color 0.3s;
+    }
+    .contact-form input:focus, .contact-form textarea:focus {
+        outline: none;
+        border-color: var(--secondary-color-blue);
+    }
+    .contact-form textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+    .contact-form button {
+        width: 100%;
+        padding: 12px;
+        background-color: var(--secondary-color-blue);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .contact-form button:hover {
+        background-color: #3a86ff;
+    }
+
+    /* === ANIMACIÓN DE DESTELLO (LENTA) === */
+    #flash-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: var(--text-primary);
+        z-index: 9999;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #flash-overlay.is-flashing {
+        opacity: 1;
+    }
+
+    /* === MEDIA QUERIES === */
+    @media (max-width: 768px) {
+        h2.view-title { font-size: 3rem; }
+        .content-grid { flex-direction: column; }
+        .footer-content { flex-direction: column; gap: 15px; }
+        .top-navbar {
+            justify-content: center;
+        }
+        .navbar-left, .navbar-right {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .navbar-left { left: 15px; }
+        .navbar-right { right: 15px; }
+    }
+  </style>
 </head>
+<body id="page-body">
 
-<body>
+  <div id="flash-overlay"></div>
+  <div class="navbar-trigger-area" id="navbar-trigger-area"></div>
 
-  <section id="hero">
-    <div class="hero-container">
-      <h1>Cruise Everywhere!</h1>
-      <h2>We offer amazing cruising experiences to expand your horizons.</h2>
-      <a href="#about" class="btn-get-started scrollto">Get Started</a>
+  <header class="top-navbar" id="top-navbar">
+    <div class="navbar-left">
+        <button id="lang-toggle" aria-label="Change Language">EN</button>
     </div>
-  </section><header id="header" class="d-flex align-items-center ">
-    <div class="container-fluid d-flex align-items-center justify-content-lg-between">
-
-      <h1 class="logo me-auto me-lg-0"><a href="index.html">Cruise Everywhere!</a></h1>
-
-      <nav id="navbar" class="navbar order-last order-lg-0">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#services">Cruises</a></li>
-          <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
-          <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><div class="header-social-links d-flex align-items-center">
-        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-      </div>
-
+    <div class="nav-links">
+      <a href="#" id="projects-link" data-key="navProjects">Proyectos</a>
+      <a href="#" id="home-link" data-key="navHome">Inicio</a>
+      <a href="#" id="skills-link" data-key="navSkills">Habilidades</a>
+      <a class="resume-button-nav" href="Resume%20David%202025-JuneVersion.pdf" target="_blank" rel="noopener noreferrer" data-key="navResume">Resume</a>
     </div>
-  </header><main id="main">
-
-    <section id="about" class="about">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>About Us</h2>
+    <div class="navbar-right">
+        <div class="navbar-actions">
+            <button class="theme-toggle" id="theme-toggle" data-key="themeToggle" aria-label="Cambiar tema">
+                <svg class="icon-moon" viewBox="0 0 24 24"><path d="M17.29,1.71C13.29,1.71 10,5 10,9C10,11.38 11.19,13.47 12.94,14.53C10.9,16.88 8,18.5 8,18.5S1.71,12.29 1.71,8.29C1.71,4.29 5,1 9,1C11.38,1 13.47,2.19 14.53,3.94C16.88,1.9 18.5,5 18.5,5S12.29,1.71 8.29,1.71Z" transform="translate(2 2) rotate(315 10 10)" /></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24"><path d="M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,2L14.39,4.39L17.66,4.84L19.22,7.78L19.78,11L19.22,14.22L17.66,17.16L14.39,17.61L12,20L9.61,17.61L6.34,17.16L4.78,14.22L4.22,11L4.78,7.78L6.34,4.84L9.61,4.39L12,2Z" /></svg>
+            </button>
+            <button class="pin-button" id="pin-button" data-key="pinNav" aria-label="Fijar Navegación">
+                <svg viewBox="0 0 24 24"><path d="M16 12V4H17V2H7V4H8V12L6 14V16H11.2V22H12.8V16H18V14L16 12Z" /></svg>
+            </button>
         </div>
+    </div>
+  </header>
 
-        <div class="row content">
-          <div class="col-lg-12">
-            <p>
-              Embark on the voyage of a lifetime with Cruise Everywhere! cruises, where luxury meets adventure on the high seas.  Our state-of-the-art cruise ships offer unparalleled comfort and elegance, featuring world-class dining, exhilarating entertainment, and serene wellness retreats.  Each journey is meticulously crafted to provide breathtaking excursions and unforgettable experiences at exotic destinations.  From sun-soaked Caribbean beaches to the majestic fjords of Alaska, Cruise Everywhere! ensures every moment on board is filled with indulgence and discovery.  Sail with us and discover a world where your dreams set sail. 
-            </p>
-            <ul>
-                <li><i class="ri-check-double-line"></i> <strong>Fleet Size:</strong> 15 state-of-the-art cruise ships </li>
-                <li><i class="ri-check-double-line"></i> <strong>Passenger Capacity:</strong> Ranges from 1,500 to 5,000 passengers per ship </li>
-                <li><i class="ri-check-double-line"></i> <strong>Crew Members:</strong> Approximately 1,200 crew members per ship, ensuring a high crew-to-passenger ratio for personalized service </li>
-                <li><i class="ri-check-double-line"></i> <strong>Destinations:</strong> Over 100 global destinations including the Caribbean, Mediterranean, Northern Europe, Alaska, Australia, and Mexico </li>
-                <li><i class="ri-check-double-line"></i> <strong>Dining Options:</strong> Over 20 diverse dining venues per ship, including Michelin-starred chef collaborations and themed specialty restaurants </li>
-                <li><i class="ri-check-double-line"></i> <strong>Entertainment:</strong> Multiple theaters and live performance venues with Broadway-style shows, concerts, and comedy acts </li>
-                <li><i class="ri-check-double-line"></i> <strong>Wellness Facilities:</strong> Full-service spas, fitness centers, yoga studios, and wellness programs </li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </section><section id="services" class="services">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Cruises</h2>
-          <p>You're about to discover just what awaits you on a Cruise Everywhere cruise.<br> Start by exploring the incredible ports we visit and the fun things to do, both on the ship and ashore. </p>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-4 col-md-6 mt-4">
-            <div class="icon-box">
-              <div class="icon"><i class="bi bi-brightness-high" style="color: #ff689b;"></i></div>
-              <h4 class="title"><a href="">Caribbean</a></h4>
-              <p class="description">With more than 5,000 islands and cays spread across this amazing region, there's a lot of paradise to see. The mild climate means it doesn't matter what time of year you visit. A Caribbean cruise takes you to some of the coolest little hotspots... stretching across the world's designated hotspot. </p>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 mt-4">
-            <div class="icon-box">
-              <div class="icon"><i class="bi bi-water" style="color: #e9bf06;"></i></div>
-              <h4 class="title"><a href="">The Bahamas</a></h4>
-              <p class="description">The Bahamas to truly appreciate this classic cruise destination. On this 700-strong string of sun-splashed islands dotting the blue Atlantic, the living's easy. Enjoy sailing, snorkeling, strolling pearly pink-sand beaches, and swimming through crystalline turquoise seas on a Bahamas cruise. </p>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 mt-4">
-            <div class="icon-box">
-              <div class="icon"><i class="bi bi-signpost-2" style="color: #3fcdc7;"></i></div>
-              <h4 class="title"><a href="">Mexico</a></h4>
-              <p class="description">Whether your Mexico cruise style is west-coast Riviera with its Pacific charm, east-coast Caribbean and its island mojo... or perhaps Baja and its out-of-this-world coastal scenery, you'll find Mexico central to a great vacation. </p>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 mt-4">
-            <div class="icon-box">
-              <div class="icon"><i class="bi bi-sunrise" style="color:#41cf2e;"></i></div>
-              <h4 class="title"><a href="">Australia</a></h4>
-              <p class="description">Whether you're after a quick getaway, or a longer holiday you'll remember forever, an Australian cruise holiday with amazing shore excursions is a great way to relax and take some time out. Excursions fit every lifestyle whether snorkelling the world's largest reef system, relaxint on Airlie Beach, or indulging in the foodie tastes of Tasmania. </p>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 mt-4">
-            <div class="icon-box">
-              <div class="icon"><i class="bi bi-binoculars" style="color: #d6ff22;"></i></div>
-              <h4 class="title"><a href="">Europe</a></h4>
-              <p class="description">Few places in the world pack in as much culture per square meter as Europe does. There's so much variety across the continent and its islands, you have options for experiencing many of these places by sea. Western Europe cruises visit the region from which the explorers of the New World kicked off their voyages. </p>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 mt-4">
-            <div class="icon-box">
-              <div class="icon"><i class="bi bi-snow" style="color: #4680ff;"></i></div>
-              <h4 class="title"><a href="">Alaska</a></h4>
-              <p class="description">If you're looking for a cruise vacation that's a little bit out of the way and a little bit out of the ordinary, make an Alaska cruise your first choice. Alaska is a natural wonder through and through, and the coastal panhandle region is perhaps the most stunning. Cruising Alaska will also give you a first-row ticket to the best of nature including fjords, wildlife and mountains galore. </p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section><section id="portfolio" class="portfolio">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Portfolio</h2>
-          <p>Check out some of the amazing views that can be experienced on any of the the fascinating cruising excursions!</p>
-        </div>
-
-        <div class="row portfolio-container">
-
-          <div class="col-lg-4 col-md-6 portfolio-item">
-            <div class="portfolio-img"><img src="img/caribbean.avif" class="img-fluid" alt="Caribbean"></div>
-            <div class="portfolio-info">
-              <h4>Caribbean</h4>
-              <p>Mahogany Bay</p>
-              <a href="img/caribbean.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Caribbean: Mahogany Bay"><i class="bx bx-plus"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item">
-            <div class="portfolio-img"><img src="img/bahamas-half-moon-cay.avif" class="img-fluid" alt="The Bahamas"></div>
-            <div class="portfolio-info">
-              <h4>Bahamas</h4>
-              <p>Half Moon Cay</p>
-              <a href="img/bahamas-half-moon-cay.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Bahamas: Half Moon Cay"><i class="bx bx-plus"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item">
-            <div class="portfolio-img"><img src="img/cabo.jpg" class="img-fluid" alt="Mexico"></div>
-            <div class="portfolio-info">
-              <h4>Mexico</h4>
-              <p>Cabo San Lucas</p>
-              <a href="img/cabo.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Mexico: Cabo San Lucas"><i class="bx bx-plus"></i></a>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6 portfolio-item">
-            <div class="portfolio-img"><img src="img/cairns.avif" class="img-fluid" alt="Australia"></div>
-            <div class="portfolio-info">
-              <h4>Australia</h4>
-              <p>Cairns</p>
-              <a href="img/cairns.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Australia: Cairns"><i class="bx bx-plus"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item">
-            <div class="portfolio-img"><img src="img/europe-port-dublin.avif" class="img-fluid" alt="Europe"></div>
-            <div class="portfolio-info">
-              <h4>Europe</h4>
-              <p>Dublin, Ireland</p>
-              <a href="img/europe-port-dublin.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Europe: Dublin, Ireland"><i class="bx bx-plus"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item">
-            <div class="portfolio-img"><img src="img/europe-naples.avif" class="img-fluid" alt="Europe"></div>
-            <div class="portfolio-info">
-              <h4>Europe</h4>
-              <p>Naples, Italy</p>
-              <a href="img/europe-naples.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Europe: Naples, Italy"><i class="bx bx-plus"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item">
-            <div class="portfolio-img"><img src="img/alaska-juneau.avif" class="img-fluid" alt="Alaska"></div>
-            <div class="portfolio-info">
-              <h4>Alaska</h4>
-              <p>Juneau</p>
-              <a href="img/alaska-juneau.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Alaska: Juneau"><i class="bx bx-plus"></i></a>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6 portfolio-item">
-            <div class="portfolio-img"><img src="img/melbourne.avif" class="img-fluid" alt="Australia"></div>
-            <div class="portfolio-info">
-              <h4>Australia</h4>
-              <p>Melbourne</p>
-              <a href="img/melbourne.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Australia: Melbourne"><i class="bx bx-plus"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item">
-            <div class="portfolio-img"><img src="img/alaska-endicott-arm-fjord.avif" class="img-fluid" alt="Alaska"></div>
-            <div class="portfolio-info">
-              <h4>Alaska</h4>
-              <p>Endicott Arm Fjord</p>
-              <a href="img/alaska-endicott-arm-fjord.avif" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Alaska: Endicott Arm Fjord"><i class="bx bx-plus"></i></a>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section><section id="pricing" class="pricing">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Pricing</h2>
-        </div>
-
-        <div class="row">
-
-          <div class="col-lg-4 col-md-6 mt-4">
-            <div class="box">
-              <h3>Caribbean</h3>
-              <h4><sup>$</sup>1500<span> / 7 days</span></h4>
-              <ul>
-                <li>Snorkel great natural reefs in crystal-clear waters </li>
-                <li>Enjoy year-round tropical weather </li>
-                <li>Enjoy a beach view on horseback or beach chair </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mt-4">
-            <div class="box">
-              <h3>The Bahamas</h3>
-              <h4><sup>$</sup>800<span> / 4 days</span></h4>
-              <ul>
-                <li>Swim and splash in sparkling waters </li>
-                <li>Taste the private destination life on Half Moon Cay and Princess Cays </li>
-                <li>Explore the expansive Atlantis resort </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mt-4">
-            <div class="box">
-              <h3>Mexico</h3>
-              <h4><sup>$</sup>950<span> / 5 days</span></h4>
-              <ul>
-                <li>Check out the shopping scene for unique local crafts </li>
-                <li>Fly high with a view while parasailing </li>
-                <li>Get down to scuba and snuba </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mt-4">
-            <div class="box">
-              <h3>Australia</h3>
-              <h4><sup>$</sup>2300<span> / 10 days</span></h4>
-              <ul>
-                  <li>Snorkel the world's largest reef system </li>
-                  <li>Indulging in the foodie tastes of Tasmania </li>
-                  <li>Soak up the Aussie sun in the Whitsundays or relax on Airlie Beach </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mt-4">
-            <div class="box">
-              <h3>Europe</h3>
-              <h4><sup>$</sup>1700<span> / 8 days</span></h4>
-              <ul>
-                <li>See some of nature's most dramatic landscapes </li>
-                <li>Explore historical buildings, ruins and cathedrals that are older than many countries </li>
-                <li>Check out museums and statues </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mt-4">
-            <div class="box">
-              <h3>Alaska</h3>
-              <h4><sup>$</sup>1400<span> / 7 days</span></h4>
-              <ul>
-                <li>Get up and go glacier-gazing, big time </li>
-                <li>Follow hiking trails to catch some grand scenery </li>
-                <li>Grab binoculars and whale-watch some big ones </li>
-              </ul>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section><section id="contact" class="contact">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Contact</h2>
-          <p>Ready to schedule your next cruising adventure? Send us a message and we will be in touch as soon as possible! </p>
-        </div>
-
-        <div class="row mt-5">
-
-          <div class="col-lg-4">
-            <div class="info">
-              <div class="address">
-                <i class="bi bi-geo-alt"></i>
-                <h4>Location:</h4>
-                <p>4328 Scorpius Street, Orlando, FL 32816</p>
-              </div>
-
-              <div class="email">
-                <i class="bi bi-envelope"></i>
-                <h4>Email:</h4>
-                <p>info@cruiseeverywhere.com</p>
-              </div>
-
-              <div class="phone">
-                <i class="bi bi-phone"></i>
-                <h4>Call:</h4>
-                <p>+1 407-888-4757</p>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="col-lg-8 mt-5 mt-lg-0">
-
-            <form action="forms/contact.php" method="post">
-              <div class="row">
-                <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-                </div>
-                <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-                </div>
-              </div>
-              <div class="form-group mt-3">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-              </div>
-              <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-              </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
-            </form>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section></main><footer id="footer">
-
-    <div class="footer-top">
-
-      <div class="container">
-
-        <div class="row justify-content-center">
-          <div class="col-lg-6">
-            <h3>Cruise Everywhere!</h3>
-          </div>
-        </div>
-
-        <div class="social-links">
-          <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-          <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-          <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-          <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-        </div>
-
+  <div class="hero" id="hero-container">
+    <div class="view hero-main-content">
+      <h2 class="view-title" id="main-title" data-key="mainName">David Vargas</h2>
+      <div class="subtitle-wrapper" id="subtitle-wrapper">
+        <p class="subtitle" data-key="mainSubtitle">IT Professional</p>
+        <p class="about-me" id="about-me" data-key="mainAbout">
+          Apasionado por la creación de soluciones tecnológicas eficientes y seguras. Mi objetivo es combinar el desarrollo de software y la administración de sistemas para construir y proteger la infraestructura digital del futuro.
+        </p>
       </div>
     </div>
+    <div class="view hero-education-content">
+        <h2 class="view-title" id="education-title" data-key="eduTitle">Educación</h2>
+        <div class="content-grid">
+            <div class="grid-item"> <h4 data-key="eduUni">Universidad</h4> <ul class="item-list"> <li data-key="eduUniName">University of Central Florida</li> <li data-key="eduUniDegree">Bachelor of Science - IT</li> <li data-key="eduUniGpa">GPA: 3.48</li> <li data-key="eduUniGrad">Graduación: Verano 2025</li> </ul> </div>
+            <div class="grid-item"> <h4 data-key="eduCollege">College</h4> <ul class="item-list"> <li data-key="eduCollegeName">Valencia College</li> <li data-key="eduCollegeDegree">Associate of Arts - General Studies</li> <li data-key="eduCollegeGpa">GPA: 3.55</li> <li data-key="eduCollegeHonor">President’s List</li> </ul> </div>
+            <div class="grid-item"> <h4 data-key="eduCerts">Certificaciones</h4> <ul class="item-list"> <li data-key="eduCert1">✔ TestOut IT Fundamentals Pro</li> <li data-key="eduCert2">✔ Cisco Packet Tracer IoT</li> <li data-key="eduCert3">⌛ CompTIA Network+ (en progreso)</li> </ul> </div>
+        </div>
+    </div>
+    <div class="view hero-skills-content">
+        <h2 class="view-title" id="skills-title" data-key="skillsTitle">Mis Habilidades</h2>
+        <div class="content-grid">
+            <div class="grid-item"> <h4 data-key="skillsCat1">Lenguajes y Desarrollo</h4> <ul class="item-list"><li>Java, C, C++</li><li>HTML, CSS, JavaScript</li><li>JSP, Servlets</li></ul> </div>
+            <div class="grid-item"> <h4 data-key="skillsCat2">Sistemas y Redes</h4> <ul class="item-list"><li>Windows, Linux</li><li>TCP/IP, DNS, DHCP</li><li>Cisco Packet Tracer</li></ul> </div>
+            <div class="grid-item"> <h4 data-key="skillsCat3">Datos y Seguridad</h4> <ul class="item-list"><li>MySQL, JDBC, SQL</li><li>Gestión de Firewalls</li><li>Evaluación de Vulnerabilidades</li></ul> </div>
+        </div>
+    </div>
+    <div class="view hero-projects-content">
+        <h2 class="view-title" id="projects-title" data-key="projectsTitle">Proyectos</h2>
+        <div class="content-grid">
+            <div class="grid-item"> <h4 data-key="proj1Title">Student To-do List Web App</h4> <ul class="item-list"><li data-key="proj1L1">HTML, CSS, JS, Firebase</li><li data-key="proj1L2">Sincronización en tiempo real</li><li><a href="https://github.com/davidvargasc" target="_blank" data-key="projLink1">Ver en GitHub</a></li></ul> </div>
+            <div class="grid-item"> <h4 data-key="proj2Title">Network Configuration Lab</h4> <ul class="item-list"><li data-key="proj2L1">Cisco Packet Tracer</li><li data-key="proj2L2">Diseño de redes segmentadas</li><li><a href="#" target="_blank" data-key="projLink2">Ver Documentación</a></li></ul> </div>
+            <div class="grid-item"> <h4 data-key="proj3Title">Three-Tier DB Web App</h4> <ul class="item-list"><li data-key="proj3L1">Java, JSP, JDBC, MySQL</li><li data-key="proj3L2">Autenticación por roles</li><li><a href="#" target="_blank" data-key="projLink3">Ver Arquitectura</a></li></ul> </div>
+        </div>
+    </div>
+    <div class="view-navigation">
+        <button class="nav-arrow" id="nav-arrow-left" data-key="arrowSkills" aria-label="Ir a Habilidades"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 18L9 12L15 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> </button>
+        <button class="nav-arrow" id="nav-arrow-right" data-key="arrowProjects" aria-label="Ir a Proyectos"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> </button>
+    </div>
+  </div>
 
-    <div class="container footer-bottom clearfix">
-      <div class="copyright">
-        &copy; Copyright <strong><span>Cruise Everywhere!</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+  <footer class="site-footer" id="contacto">
+    <div class="footer-content">
+      <p data-key="footerRights">&copy; 2024 David Vargas. Todos los derechos reservados.</p>
+      <div class="social-links">
+        <button id="contact-modal-open-btn" class="contact-btn-footer" data-key="contactBtn">Contáctame</button>
+        <a href="mailto:davidfervc@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6ZM20 6L12 11L4 6H20ZM20 18H4V8L12 13L20 8V18Z"/></svg></a>
+        <a href="https://linkedin.com/in/davidvargas" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z"/></svg></a>
+        <a href="https://github.com/davidvargasc" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"/></svg></a>
       </div>
     </div>
-  </footer><div id="preloader"></div>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  </footer>
 
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <div class="modal-overlay" id="contact-modal">
+    <div class="modal-content">
+        <button class="modal-close-btn" id="contact-modal-close-btn">&times;</button>
+        <h3 data-key="modalTitle">Ponte en Contacto</h3>
+        <form class="contact-form" action="https://formsubmit.co/davidfervc@gmail.com" method="POST">
+            <div class="form-group">
+                <label for="name" data-key="modalName">Nombre</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email" data-key="modalEmail">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message" data-key="modalMessage">Mensaje</label>
+                <textarea id="message" name="message" required></textarea>
+            </div>
+            <input type="hidden" name="_next" value="URL_DE_TU_PAGINA_DE_GRACIAS"> 
+            <input type="hidden" name="_subject" value="Nuevo Mensaje desde tu Portafolio!">
+            <button type="submit" data-key="modalSend">Enviar Mensaje</button>
+        </form>
+    </div>
+  </div>
+ 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const translations = {
+            es: { pageTitle: "David Vargas | IT Professional", navProjects: "Proyectos", navHome: "Inicio", navSkills: "Habilidades", navResume: "Resume", themeToggle: "Cambiar tema", pinNav: "Fijar Navegación", mainName: "David Vargas", mainSubtitle: "IT Professional", mainAbout: "Apasionado por la creación de soluciones tecnológicas eficientes y seguras. Mi objetivo es combinar el desarrollo de software y la administración de sistemas para construir y proteger la infraestructura digital del futuro.", eduTitle: "Educación", eduUni: "Universidad", eduUniName: "University of Central Florida", eduUniDegree: "Bachelor of Science - IT", eduUniGpa: "GPA: 3.48", eduUniGrad: "Graduación: Verano 2025", eduCollege: "College", eduCollegeName: "Valencia College", eduCollegeDegree: "Associate of Arts - General Studies", eduCollegeGpa: "GPA: 3.55", eduCollegeHonor: "President’s List", eduCerts: "Certificaciones", eduCert1: "✔ TestOut IT Fundamentals Pro", eduCert2: "✔ Cisco Packet Tracer IoT", eduCert3: "⌛ CompTIA Network+ (en progreso)", skillsTitle: "Mis Habilidades", skillsCat1: "Lenguajes y Desarrollo", skillsCat2: "Sistemas y Redes", skillsCat3: "Datos y Seguridad", projectsTitle: "Proyectos", proj1Title: "Student To-do List Web App", proj1L1: "HTML, CSS, JS, Firebase", proj1L2: "Sincronización en tiempo real", projLink1: "Ver en GitHub", proj2Title: "Network Configuration Lab", proj2L1: "Cisco Packet Tracer", proj2L2: "Diseño de redes segmentadas", projLink2: "Ver Documentación", proj3Title: "Three-Tier DB Web App", proj3L1: "Java, JSP, JDBC, MySQL", proj3L2: "Autenticación por roles", projLink3: "Ver Arquitectura", arrowSkills: "Ir a Habilidades", arrowProjects: "Ir a Proyectos", footerRights: "© 2024 David Vargas. Todos los derechos reservados.", contactBtn: "Contáctame", modalTitle: "Ponte en Contacto", modalName: "Nombre", modalEmail: "Email", modalMessage: "Mensaje", modalSend: "Enviar Mensaje", },
+            en: { pageTitle: "David Vargas | IT Professional", navProjects: "Projects", navHome: "Home", navSkills: "Skills", navResume: "Resume", themeToggle: "Toggle theme", pinNav: "Pin Navigation", mainName: "David Vargas", mainSubtitle: "IT Professional", mainAbout: "Passionate about creating efficient and secure technological solutions. My goal is to combine software development and systems administration to build and protect the digital infrastructure of the future.", eduTitle: "Education", eduUni: "University", eduUniName: "University of Central Florida", eduUniDegree: "Bachelor of Science - IT", eduUniGpa: "GPA: 3.48", eduUniGrad: "Graduation: Summer 2025", eduCollege: "College", eduCollegeName: "Valencia College", eduCollegeDegree: "Associate of Arts - General Studies", eduCollegeGpa: "GPA: 3.55", eduCollegeHonor: "President’s List", eduCerts: "Certifications", eduCert1: "✔ TestOut IT Fundamentals Pro", eduCert2: "✔ Cisco Packet Tracer IoT", eduCert3: "⌛ CompTIA Network+ (in progress)", skillsTitle: "My Skills", skillsCat1: "Languages & Development", skillsCat2: "Systems & Networking", skillsCat3: "Data & Security", projectsTitle: "Projects", proj1Title: "Student To-do List Web App", proj1L1: "HTML, CSS, JS, Firebase", proj1L2: "Real-time synchronization", projLink1: "View on GitHub", proj2Title: "Network Configuration Lab", proj2L1: "Cisco Packet Tracer", proj2L2: "Segmented network design", projLink2: "View Documentation", proj3Title: "Three-Tier DB Web App", proj3L1: "Java, JSP, JDBC, MySQL", proj3L2: "Role-based authentication", projLink3: "View Architecture", arrowSkills: "Go to Skills", arrowProjects: "Go to Projects", footerRights: "© 2024 David Vargas. All rights reserved.", contactBtn: "Contact Me", modalTitle: "Get in Touch", modalName: "Name", modalEmail: "Email", modalMessage: "Message", modalSend: "Send Message", }
+        };
 
-  <script src="assets/js/main.js"></script>
+        const pageBody = document.getElementById('page-body');
+        const flashOverlay = document.getElementById('flash-overlay');
+        const topNavbar = document.getElementById('top-navbar');
+        const triggerArea = document.getElementById('navbar-trigger-area');
+        const langToggleButton = document.getElementById('lang-toggle');
+        const navArrowLeft = document.getElementById('nav-arrow-left');
+        const navArrowRight = document.getElementById('nav-arrow-right');
+
+        let currentLanguage = localStorage.getItem('language') || 'es';
+
+        const setLanguage = (lang) => {
+            currentLanguage = lang;
+            document.getElementById('html-lang').setAttribute('lang', lang);
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.dataset.key;
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.hasAttribute('aria-label')) {
+                        element.setAttribute('aria-label', translations[lang][key]);
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+            langToggleButton.textContent = lang === 'es' ? 'EN' : 'ES';
+            localStorage.setItem('language', lang);
+        };
+        
+        langToggleButton.addEventListener('click', () => {
+            const newLang = currentLanguage === 'es' ? 'en' : 'es';
+            
+            flashOverlay.classList.add('is-flashing');
+            
+            setTimeout(() => {
+                setLanguage(newLang);
+                setTimeout(() => {
+                    flashOverlay.classList.remove('is-flashing');
+                }, 200);
+
+            }, 600);
+        });
+
+        const themeToggleButton = document.getElementById('theme-toggle');
+        if (localStorage.getItem('theme') === 'light') {
+            pageBody.classList.add('light-mode');
+        }
+        themeToggleButton.addEventListener('click', () => {
+            pageBody.classList.toggle('light-mode');
+            localStorage.setItem('theme', pageBody.classList.contains('light-mode') ? 'light' : 'dark');
+        });
+      
+        const contactModal = document.getElementById('contact-modal');
+        const openModalBtn = document.getElementById('contact-modal-open-btn');
+        const closeModalBtn = document.getElementById('contact-modal-close-btn');
+        openModalBtn.addEventListener('click', () => contactModal.classList.add('is-visible'));
+        closeModalBtn.addEventListener('click', () => contactModal.classList.remove('is-visible'));
+        contactModal.addEventListener('click', (e) => {
+            if (e.target === contactModal) contactModal.classList.remove('is-visible');
+        });
+
+        const mainTitle = document.getElementById('main-title');
+        const educationTitle = document.getElementById('education-title');
+        let currentView = 'main';
+
+        const updateArrowVisibility = () => {
+            const isEduView = pageBody.classList.contains('education-view');
+            navArrowLeft.style.opacity = (currentView === 'skills' || isEduView) ? '0' : '1';
+            navArrowLeft.style.pointerEvents = (currentView === 'skills' || isEduView) ? 'none' : 'all';
+            navArrowRight.style.opacity = (currentView === 'projects' || isEduView) ? '0' : '1';
+            navArrowRight.style.pointerEvents = (currentView === 'projects' || isEduView) ? 'none' : 'all';
+        };
+      
+        function animateList(viewSelector) {
+            const items = document.querySelectorAll(`${viewSelector} .item-list li`);
+            items.forEach((item, index) => {
+                item.style.animation = 'none'; item.offsetHeight; 
+                item.style.animation = `fadeInUp 0.5s ease-out forwards ${index * 0.1}s`;
+            });
+        }
+      
+        function changeView(newView) {
+            const isLight = pageBody.classList.contains('light-mode');
+            pageBody.className = isLight ? 'light-mode' : '';
+            if (newView) {
+                pageBody.classList.add(`${newView}-view`);
+            }
+            currentView = newView || 'main';
+            if (newView) {
+                animateList(`.hero-${newView}-content`);
+            }
+            updateArrowVisibility();
+        }
+
+        document.getElementById('home-link').addEventListener('click', (e) => { e.preventDefault(); changeView(''); });
+        document.getElementById('skills-link').addEventListener('click', (e) => { e.preventDefault(); changeView('skills'); });
+        document.getElementById('projects-link').addEventListener('click', (e) => { e.preventDefault(); changeView('projects'); });
+      
+        navArrowLeft.addEventListener('click', () => {
+            if (currentView === 'main') changeView('skills');
+            else if (currentView === 'projects') changeView('');
+        });
+        navArrowRight.addEventListener('click', () => {
+            if (currentView === 'main') changeView('projects');
+            else if (currentView === 'skills') changeView('');
+        });
+
+        mainTitle.addEventListener('click', () => {
+            pageBody.classList.add('education-view');
+            animateList('.hero-education-content');
+            updateArrowVisibility();
+        });
+        educationTitle.addEventListener('click', () => {
+            pageBody.classList.remove('education-view');
+            updateArrowVisibility();
+        });
+      
+        const pinButton = document.getElementById('pin-button');
+        let navMouseOutTimer;
+        const showNav = () => { clearTimeout(navMouseOutTimer); topNavbar.classList.add('is-visible'); }
+        const hideNav = () => { if (!topNavbar.classList.contains('is-pinned')) { topNavbar.classList.remove('is-visible'); } }
+        triggerArea.addEventListener('mouseenter', showNav);
+        topNavbar.addEventListener('mouseenter', showNav);
+        triggerArea.addEventListener('mouseleave', () => { navMouseOutTimer = setTimeout(hideNav, 300); });
+        topNavbar.addEventListener('mouseleave', () => { navMouseOutTimer = setTimeout(hideNav, 300); });
+        pinButton.addEventListener('click', () => { topNavbar.classList.toggle('is-pinned'); pinButton.classList.toggle('is-pinned'); });
+      
+        const subtitleWrapper = document.getElementById('subtitle-wrapper');
+        const aboutMe = document.getElementById('about-me');
+        subtitleWrapper.addEventListener('click', (e) => { e.stopPropagation(); aboutMe.classList.toggle('is-pinned'); });
+
+        setLanguage(currentLanguage);
+        updateArrowVisibility();
+    });
+  </script>
 
 </body>
-
 </html>
