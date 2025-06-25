@@ -184,7 +184,7 @@
     .view-navigation { position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; padding: 0 30px; transform: translateY(-50%); pointer-events: none; }
     .nav-arrow { background: var(--card-bg-color); border: 1px solid var(--border-color); width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: transform 0.3s, background 0.3s, opacity 0.4s ease; pointer-events: all; }
     .nav-arrow:hover { transform: scale(1.1); background: var(--navbar-bg-color); }
-    .nav-arrow svg { stroke: var(--text-primary); }
+    .nav-arrow svg { stroke: var(--text-primary); transition: all 0.2s ease-in-out; }
 
     /* === FOOTER === */
     .site-footer { position: absolute; bottom: 0; width: 100%; padding: 15px 40px; z-index: 10; }
@@ -295,34 +295,6 @@
 
     /* === MEDIA QUERIES PARA RESPONSIVE DESIGN === */
     @media (max-width: 768px) {
-      /* ARREGLO FINAL: Vistas restauradas al diseño original no-scroll */
-      /* PERO con scroll interno en el area de contenido para evitar desbordamiento */
-      .view {
-        padding: 70px 20px 80px 20px; /* Padding para dejar espacio para header y footer fijos */
-      }
-      .content-grid {
-        flex-direction: column;
-        margin-top: 20px;
-        gap: 20px;
-        /* ARREGLO CLAVE: El scroll ahora es interno al content-grid */
-        overflow-y: auto;
-        flex-grow: 1; /* Permite que el grid ocupe el espacio vertical disponible */
-        padding: 15px;
-        /* Mejora estética para la barra de scroll */
-        scrollbar-width: thin;
-        scrollbar-color: var(--primary-color) transparent;
-      }
-      .content-grid::-webkit-scrollbar {
-        width: 6px;
-      }
-      .content-grid::-webkit-scrollbar-thumb {
-        background-color: var(--primary-color);
-        border-radius: 3px;
-      }
-      .content-grid::-webkit-scrollbar-track {
-        background: transparent;
-      }
-
       .footer-content { flex-direction: column; gap: 25px; justify-content: center; align-items: center; }
 
       .top-navbar {
@@ -340,11 +312,54 @@
       .navbar-actions { gap: 8px; }
       
       #linkedin-badge { bottom: calc(100% + 15px); left: 50%; transform: translateX(-50%) translateY(10px); }
+
+      /* --- ARREGLO FINAL PARA VISTAS MÓVIL --- */
+
+      /* 1. Para la PÁGINA PRINCIPAL, dejar espacio para el footer */
+      .hero-main-content.view {
+        padding-bottom: 100px;
+      }
+
+      /* 2. Para las OTRAS PÁGINAS (Skills, Proyectos, etc.) */
+      .hero-skills-content.view,
+      .hero-projects-content.view,
+      .hero-education-content.view {
+        padding-top: 70px; /* Espacio para el header */
+        padding-bottom: 40px; /* Espacio mínimo abajo */
+        justify-content: flex-start;
+      }
+      .hero-skills-content .content-grid,
+      .hero-projects-content .content-grid,
+      .hero-education-content .content-grid {
+        flex-direction: column;
+        margin-top: 20px;
+        gap: 20px;
+        overflow-y: auto; /* Scroll interno */
+        flex-grow: 1;
+        padding: 15px;
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary-color) transparent;
+      }
+      .hero-skills-content .content-grid::-webkit-scrollbar,
+      .hero-projects-content .content-grid::-webkit-scrollbar,
+      .hero-education-content .content-grid::-webkit-scrollbar {
+        width: 6px;
+      }
+      .hero-skills-content .content-grid::-webkit-scrollbar-thumb,
+      .hero-projects-content .content-grid::-webkit-scrollbar-thumb,
+      .hero-education-content .content-grid::-webkit-scrollbar-thumb {
+        background-color: var(--primary-color);
+        border-radius: 3px;
+      }
       
-      /* ARREGLO FINAL: Reducción final de tamaño de flechas a 32px */
+      /* 3. Reducción final de tamaño de flechas */
       .nav-arrow {
-        width: 32px;
-        height: 32px;
+        width: 16px;
+        height: 16px;
+      }
+      .nav-arrow svg {
+        width: 12px; /* Reducir también el icono SVG */
+        height: 12px;
       }
       .view-navigation {
         padding: 0 15px;
